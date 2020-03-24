@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    var matus = ViewBag.matus;
+}
+
+    <div class="text-center">
+        <h1 class="display-4">Artificial intelligence</h1>
+        <p>Subject focuses on different algorithms and neural network.</p>
+    </div>
+@matus
+    <div class="site-index">
+
+
+        <div class="body-content">
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <h2>Local search algorithms</h2>
+
+                    <p>On the N-queens problem, implement the hill-climbing, simulated annealing, local beam search and genetic algorithms. Research the algorithms using the web. The application must have a graphical user interface and you must enable the user to change algorithm parameters. For simulated annealing, the user should be able to change the starting temperature and the cooling factor. For local beam search, the user should be able to change the number of states. For the genetic algorithm, the user should be able to change the size of a single generation, the percent of elitism, the crossover probability, the mutation probability and the number of generations.</p>
+
+                    @*<img src="images/chess.png" asp-append-version="true">*@
+                   
+                    <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+
+                </div>
+                <div class="col-lg-4">
+                    <h2>Minimax with alpha-beta pruning</h2>
+
+                    <p>Implement the minimax algorithm with alfa-beta pruning on a simple tic-tac-toe game. Create a graphical user interface and enable the user to choose the difficulty by setting the depth of the minimax game tree (e.g. number of moves to think ahead).</p>
+
+                    <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
+                </div>
+                <div class="col-lg-4">
+                    <h2>Multi-layer artificial neural network</h2>
+
+                    <p>Implement a multi-layer artificial neural network which will learn written symbols. Make a graphical user interface where the user will be able to input a character on a pixel grid (64x64). The character should be vectorized and is the input to the neural network. Implement the neural network using the backpropagation algorithm. The number of hidden layers and neurons, as well as the learning speed and the error boundary are all parameters which should be set from the user interface. All neurons should use the logistic activation function.</p>
+
+                    <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
