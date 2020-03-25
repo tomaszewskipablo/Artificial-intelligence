@@ -7,7 +7,7 @@ namespace ArtificialIntelligence.Models
 {
     public class Chessboard
     {
-        public int size=3;
+        public int size=4;
 
         public Chessboard(int size)
         {

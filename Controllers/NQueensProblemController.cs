@@ -13,13 +13,14 @@ namespace ArtificialIntelligence.Controllers
 
         public IActionResult Index()
         {
-            Chessboard chessboard = new Chessboard(4);
+
+            Chessboard chessboard = new Chessboard(6);
             return View(chessboard);
             //return View();
         }
         public IActionResult displayChessboard()
         {
-            Chessboard chessboard = new Chessboard(4);
+            Chessboard chessboard = new Chessboard(9);
             return View(chessboard);
         }
     }

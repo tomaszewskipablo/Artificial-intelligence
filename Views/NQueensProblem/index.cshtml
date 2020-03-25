@@ -1,36 +1,87 @@
 ﻿@model Chessboard
 
-@{
 
+@{
+    int size = Model.size;
+    if (Model.size > 8)
+        size = 8;
+    int square = 25 * (10 - size);
+    string squareSize = square + "px";
+    int font = 15 * (10 - size);
+    string fontSize = font + "px";
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">N Queens Problem</h1>
-    <p>On the N-queens problem, implement the hill-climbing, simulated annealing, local beam search and genetic algorithms. Research the algorithms using the web. The application must have a graphical user interface and you must enable the user to change algorithm parameters. For simulated annealing, the user should be able to change the starting temperature and the cooling factor. For local beam search, the user should be able to change the number of states. For the genetic algorithm, the user should be able to change the size of a single generation, the percent of elitism, the crossover probability, the mutation probability and the number of generations.</p>
+    @*<p>On the N-queens problem, implement the hill-climbing, simulated annealing, local beam search and genetic algorithms. Research the algorithms using the web. The application must have a graphical user interface and you must enable the user to change algorithm parameters. For simulated annealing, the user should be able to change the starting temperature and the cooling factor. For local beam search, the user should be able to change the number of states. For the genetic algorithm, the user should be able to change the size of a single generation, the percent of elitism, the crossover probability, the mutation probability and the number of generations.</p>*@
 </div>
 
 <div class="site-index">
     <div class="body-content">
-        <div class="chessboard">
-        @{
-            for (int i = 0; i < Model.size; i++)
-            {
-                for (int j = 0; j < Model.size; j++)
-                {
-                    if ((i + j) % 2 == 1)
-                    {
-                        <div class="square-0"></div>
-                    }
-                    else
-                    {
-                          <div class="square-1"></div>
-                    }
-                }
+        <div class="row">
+            <div class="form-group col-md-2">
                 <br />
-            }
-        }
+                <br />
+                <br />
+                <button type="button" class="btn btn-outline-primary btn-block">hill-climbing</button>
+                <button type="button" class="btn btn-outline-secondary btn-block">simulated annealing</button>
+                <button type="button" class="btn btn-outline-success btn-block">local beam search</button>
+                <button type="button" class="btn btn-outline-danger btn-block">genetic algorithms</button>
+
+                <label for="inputState">State</label>
+                <select id="inputState" class="form-control">
+                    <option selected>Choose...</option>
+                    <option>1x1</option>
+                    <option>2x2</option>
+                    <option>3x3</option>
+                </select>
             </div>
+
+
+            <div class="col-lg-9">
+                <div class="chessboard">
+                    @{
+                        for (int i = 0; i < Model.size + 1; i++)
+                        {
+                            if (i == 0)
+                            {
+                                <div class="square-number" style="color: white">0</div>
+                            }
+                            else
+                            {
+                                char sign = Convert.ToChar(i + 'A' - 1);
+                                <div class="square-number">
+
+                                    <div class="number">
+                                        @sign
+                                    </div>
+                                </div>
+                            }
+                        }
+                        <br />
+                        for (int i = 0; i < Model.size; i++)
+                        {
+                            <div class="square-number" style="vertical-align:top;">@(i+1)</div>
+                            for (int j = 0; j < Model.size; j++)
+                            {
+                                if ((i + j) % 2 == 1)
+                                {
+                                    <div class="square-0"></div>
+                                }
+                                else
+                                {
+                                    <div class="square-1"></div>
+                                }
+                            }
+                            <br />
+                        }
+                    }
+
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -38,17 +89,28 @@
 
     .chessboard div {
         display: inline-block;
-        width: 120px;
-        height: 120px;
-        border-radius: 25px;
-        border: 2px solid #000000;
+        width: @squareSize;
+        height:  @squareSize;
+        border-radius: 10px;
+
     }
-    .square-0 {     
+    .square-0 {
         background-color: gray;
-        
+        border: 2px solid #000000;
+        text-align:right;
     }
     .square-1 {
         background-color: #282828;
+        border: 2px solid #000000;
+    }
+    .square-number {
+        background-color: white;
+        font-size: @fontSize;
+     
+    }
+    .number {
+        text-align:center;
+       margin:auto;
     }
 
 </style>
