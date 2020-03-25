@@ -5,9 +5,9 @@
     int size = Model.size;
     if (Model.size > 8)
         size = 8;
-    int square = 25 * (10 - size);
+    double square = 25 * (10 - size)*0.76;
     string squareSize = square + "px";
-    int font = 15 * (10 - size);
+    double font = 15 * (10 - size)*0.8;
     string fontSize = font + "px";
     ViewData["Title"] = "Home Page";
 }
@@ -20,40 +20,25 @@
 <div class="site-index">
     <div class="body-content">
         <div class="row">
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
                 <br />
                 <br />
                 <br />
-                <button type="button" class="btn btn-outline-primary btn-block">hill-climbing</button>
-                <button type="button" class="btn btn-outline-secondary btn-block">simulated annealing</button>
-                <button type="button" class="btn btn-outline-success btn-block">local beam search</button>
-                <button type="button" class="btn btn-outline-danger btn-block">genetic algorithms</button>
+                <label>Choos algorithm to perform: </label>
+                <button type="button" onclick="hillClimbingClicked()" id="btn-hill-climbing" class="btn btn-outline-primary btn-block">hill-climbing</button>
+                <button type="button" onclick="simulatedAnnealingClicked()" class="btn btn-outline-secondary btn-block">simulated annealing</button>
+                <button type="button" onclick="localBeamSearchClicked()" class="btn btn-outline-success btn-block">local beam search</button>
+                <button type="button" onclick="geneticAlgorithmsClicked()" class="btn btn-outline-danger btn-block">genetic algorithms</button>
 
-                @using (Html.BeginForm("NewSize", "NQueensProblem", FormMethod.Post))
-                {
-                    <label for="size">State</label>
-                    <select id="size" name="size" class="form-control">
-                        
-                        <option selected>4</option>
-                        <option vaulue="2">5</option>
-                        <option vaulue="3">6</option>
-                        <option vaulue="1">7</option>
-                        <option vaulue="2">8</option>
-                        <option vaulue="3">9</option>
-                        <option vaulue="1">10</option>
-                        <option vaulue="2">11</option>
-                        <option vaulue="3">12</option>
-                    </select>
+                <br />
+                <br />
 
-                    <button type="submit" class="btn btn-primary" style="margin-top: 15px; margin-bottom: 15px">
-                        Change Size
-                    </button>
-                }
-                
+
+
             </div>
 
 
-            <div class="col-lg-9">
+            <div class="col-lg-7">
                 <div class="chessboard">
                     @{
                         for (int i = 0; i < Model.size + 1; i++)
@@ -95,8 +80,53 @@
 
                 </div>
             </div>
+
+            <div class="col-lg-2" id="chooseBoradSize" style="display:none ">
+                <br />
+                <br />
+                <br />
+                @using (Html.BeginForm("NewSize", "NQueensProblem", FormMethod.Post))
+                {
+            <center>
+
+                    <label for="size">Change board size</label>
+                    <select id="size" name="size" class="form-control">
+                        <option selected>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                    </select>
+
+                    <br />
+                    <br />
+
+                    <h3><div class="badge badge-secondary" style="display: block">Insert data:</div></h3>
+
+                    <div class="form-group">
+                        <input name="firstVar" class="form-control" id="firstVar" aria-describedby="emailHelp">
+                        <small id="emailHelp" class="form-text text-muted">Cooling Factor</small>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" id="secVar" aria-describedby="emailHelp">
+                        <small id="emailHelp" class="form-text text-muted">Starting Temperature.</small>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-outline-secondary" style="margin-top: 15px; margin-bottom: 15px">
+                        Change Size
+                    </button>
+
+</center>
+                }
+
+            </div>
+
         </div>
-    </div>
 </div>
 
 <style>
@@ -128,3 +158,4 @@
     }
 
 </style>
+

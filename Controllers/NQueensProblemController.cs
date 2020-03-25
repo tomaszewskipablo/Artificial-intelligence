@@ -24,6 +24,7 @@ namespace ArtificialIntelligence.Controllers
         public IActionResult NewSize(IFormCollection formCollection)
         {            
                 int size = int.Parse(formCollection["size"]);
+            var parm1 = formCollection["firstVar"];
 
                 Chessboard chessboard = new Chessboard(size);
                 return View("Index", chessboard);           
