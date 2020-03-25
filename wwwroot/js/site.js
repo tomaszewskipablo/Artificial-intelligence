@@ -6,6 +6,12 @@
 
 function hillClimbingClicked() {
     document.getElementById("chooseBoradSize").style.display = "block";
-  
+    document.getElementById("hillClimbingVar").style.display = "none";
+    document.getElementById("labelInsertVariables").style.display = "none";
 }
-//document.getElementById("btn-hill-climbing").click
+
+function simulatedAnnealingClicked() {
+    document.getElementById("chooseBoradSize").style.display = "block";
+    document.getElementById("simulatedAnnealingVar").style.display = "block";
+    document.getElementById("labelInsertVariables").style.display = "block";
+}
