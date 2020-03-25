@@ -32,19 +32,20 @@ namespace ArtificialIntelligence.Controllers
             }
             else if(algorithm == "simulatedAnnealing")
             {
-                var parm1 = formCollection["firVar"];
-                var parm2 = formCollection["secVar"];
+                var coolingFactor = formCollection["coolingFactor"];
+                var startingTemperature = formCollection["startingTemperature"];
             }
             else if (algorithm == "localBeamSearch")
             {
-                var parm1 = formCollection["firVar"];
+                var numberOfStates = formCollection["numberOfStates"];
             }
             else  // geneticAlgorithms
             {
-                var parm1 = formCollection["firVar"];
-                var parm2 = formCollection["secVar"];
-                var parm3 = formCollection["thiVar"];
-                var parm4 = formCollection["fouVar"];
+                var sizeOfASingleGeneration = formCollection["sizeOfASingleGeneration"];
+                var percentOfElitism = formCollection["percentOfElitism"];
+                var crossoverProbability = formCollection["crossoverProbability"];
+                var mutationProbability = formCollection["mutationProbability"];
+                var numberOfGenerations = formCollection["numberOfGenerations"];
             }
 
 

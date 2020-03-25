@@ -3,15 +3,41 @@
 
 // Write your JavaScript code.
 
+function displayNoneVariables() {
+    document.getElementById("chooseBoradSize").style.display = "none";
+    document.getElementById("labelInsertVariables").style.display = "none";
+
+    document.getElementById("simulatedAnnealingVar").style.display = "none";
+    document.getElementById("localBeamSearchVar").style.display = "none";
+    document.getElementById("geneticAlgorithmsVar").style.display = "none";
+}
+function displayBlockVariables()
+{
+    document.getElementById("chooseBoradSize").style.display = "block";
+    document.getElementById("labelInsertVariables").style.display = "block";
+}
+
 
 function hillClimbingClicked() {
+    
+    displayNoneVariables();
     document.getElementById("chooseBoradSize").style.display = "block";
-    document.getElementById("hillClimbingVar").style.display = "none";
-    document.getElementById("labelInsertVariables").style.display = "none";
 }
 
 function simulatedAnnealingClicked() {
-    document.getElementById("chooseBoradSize").style.display = "block";
+    displayNoneVariables()
+    displayBlockVariables();
     document.getElementById("simulatedAnnealingVar").style.display = "block";
-    document.getElementById("labelInsertVariables").style.display = "block";
+}
+
+function localBeamSearchClicked() {
+    displayNoneVariables()
+    displayBlockVariables();
+    document.getElementById("localBeamSearchVar").style.display = "block";
+}
+
+function geneticAlgorithmsClicked() {
+    displayNoneVariables()
+    displayBlockVariables();
+    document.getElementById("geneticAlgorithmsVar").style.display = "block";
 }

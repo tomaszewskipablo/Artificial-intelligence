@@ -109,14 +109,45 @@
 
                 <div id="simulatedAnnealingVar" style="display: none">
                     <div class="form-group">
-                        <input name="firVar" class="form-control" id="firVar" aria-describedby="emailHelp">
+                        <input name="coolingFactor" class="form-control" id="firVar" aria-describedby="emailHelp">
                         <small id="emailHelp" class="form-text text-muted">Cooling Factor</small>
                     </div>
                     <div class="form-group">
-                        <input name="secVar" class="form-control" id="secVar" aria-describedby="emailHelp">
-                        <small id="emailHelp" class="form-text text-muted">Starting Temperature.</small>
+                        <input name="startingTemperature" class="form-control" id="secVar" aria-describedby="emailHelp">
+                        <small id="emailHelp" class="form-text text-muted">Starting Temperature</small>
                     </div>
                 </div>
+
+                <div id="localBeamSearchVar" style="display: none">
+                    <div class="form-group">
+                        <input name="numberOfStates" class="form-control" id="firVar" aria-describedby="emailHelp">
+                        <small id="emailHelp" class="form-text text-muted">Number of states</small>
+                    </div>
+                </div>
+
+                <div id="geneticAlgorithmsVar" style="display: none">
+                    <div class="form-group">
+                        <input name="sizeOfASingleGeneration" class="form-control" id="firVar" aria-describedby="emailHelp">
+                        <small id="emailHelp" class="form-text text-muted">Size of a single generation</small>
+                    </div>
+                    <div class="form-group">
+                        <input name="percentOfElitism" class="form-control" id="secVar" aria-describedby="emailHelp">
+                        <small id="emailHelp" class="form-text text-muted">Percent of elitism</small>
+                    </div>
+                    <div class="form-group">
+                        <input name="crossoverProbability" class="form-control" id="firVar" aria-describedby="emailHelp">
+                        <small id="emailHelp" class="form-text text-muted">Crossover probability</small>
+                    </div>
+                    <div class="form-group">
+                        <input name="mutationProbability" class="form-control" id="secVar" aria-describedby="emailHelp">
+                        <small id="emailHelp" class="form-text text-muted">Mutation probability</small>
+                    </div>
+                    <div class="form-group">
+                        <input name="numberOfGenerations" class="form-control" id="secVar" aria-describedby="emailHelp">
+                        <small id="emailHelp" class="form-text text-muted">Number of generations</small>
+                    </div>
+                </div>
+
 
                 <button type="submit" class="btn btn-outline-secondary" style="margin-top: 15px; margin-bottom: 15px">
                     Change Size
