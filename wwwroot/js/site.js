@@ -10,6 +10,8 @@ function displayNoneVariables() {
     document.getElementById("simulatedAnnealingVar").style.display = "none";
     document.getElementById("localBeamSearchVar").style.display = "none";
     document.getElementById("geneticAlgorithmsVar").style.display = "none";
+
+    document.getElementById("algorithm").value= "hillClimbing";
 }
 function displayBlockVariables()
 {

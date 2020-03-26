@@ -25,17 +25,20 @@ namespace ArtificialIntelligence.Controllers
         {            
                 int size = int.Parse(formCollection["size"]);
 
-            var algorithm = formCollection["algorithm"];
-            if (algorithm == "hillClimbing")
+            Algorithm algorithm = new Algorithm();
+
+            var algorithm1 = formCollection["algorithm"];
+            if (algorithm1 == "hillClimbing")
             {
-                
+                HillClimbingSolution hillClimbingSolution = new HillClimbingSolution();
+                algorithm.SetSolution(hillClimbingSolution);
             }
-            else if(algorithm == "simulatedAnnealing")
+            else if(algorithm1 == "simulatedAnnealing")
             {
                 var coolingFactor = formCollection["coolingFactor"];
                 var startingTemperature = formCollection["startingTemperature"];
             }
-            else if (algorithm == "localBeamSearch")
+            else if (algorithm1 == "localBeamSearch")
             {
                 var numberOfStates = formCollection["numberOfStates"];
             }
