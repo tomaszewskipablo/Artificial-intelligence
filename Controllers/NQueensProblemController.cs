@@ -44,6 +44,8 @@ namespace ArtificialIntelligence.Controllers
             else if (algorithm1 == "localBeamSearch")
             {
                 var numberOfStates = formCollection["numberOfStates"];
+                localBeamSearchSolution localBeamSearchSolution = new localBeamSearchSolution();
+                algorithm.SetSolution(localBeamSearchSolution);
             }
             else  // geneticAlgorithms
             {

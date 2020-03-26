@@ -41,6 +41,8 @@ function localBeamSearchClicked() {
     displayNoneVariables()
     displayBlockVariables();
     document.getElementById("localBeamSearchVar").style.display = "block";
+
+    document.getElementById("algorithm").value = "localBeamSearch";
 }
 
 function geneticAlgorithmsClicked() {
