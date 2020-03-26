@@ -11,12 +11,13 @@ function displayNoneVariables() {
     document.getElementById("localBeamSearchVar").style.display = "none";
     document.getElementById("geneticAlgorithmsVar").style.display = "none";
 
-    document.getElementById("algorithm").value= "hillClimbing";
+    
 }
 function displayBlockVariables()
 {
     document.getElementById("chooseBoradSize").style.display = "block";
     document.getElementById("labelInsertVariables").style.display = "block";
+
 }
 
 
@@ -24,12 +25,16 @@ function hillClimbingClicked() {
     
     displayNoneVariables();
     document.getElementById("chooseBoradSize").style.display = "block";
+
+    document.getElementById("algorithm").value = "hillClimbing";
 }
 
 function simulatedAnnealingClicked() {
     displayNoneVariables()
     displayBlockVariables();
     document.getElementById("simulatedAnnealingVar").style.display = "block";
+
+    document.getElementById("algorithm").value = "simulatedAnnealing";
 }
 
 function localBeamSearchClicked() {

@@ -37,6 +37,9 @@ namespace ArtificialIntelligence.Controllers
             {
                 var coolingFactor = formCollection["coolingFactor"];
                 var startingTemperature = formCollection["startingTemperature"];
+
+                simulatedAnnealingSolution simulatedAnnealingSolution = new simulatedAnnealingSolution();
+                algorithm.SetSolution(simulatedAnnealingSolution);
             }
             else if (algorithm1 == "localBeamSearch")
             {

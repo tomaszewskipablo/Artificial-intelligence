@@ -7,6 +7,6 @@ namespace ArtificialIntelligence.Models
 {
     public interface ISolution
     {
-        public void solution();
+        public void solve();
     }
 }

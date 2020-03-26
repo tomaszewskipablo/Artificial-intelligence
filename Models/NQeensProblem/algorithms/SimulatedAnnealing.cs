@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 
 namespace ArtificialIntelligence.Models
 {
-    public class HillClimbingSolution : ISolution
+    public class simulatedAnnealingSolution : ISolution
     {
-        public void solution()
+        public void solve()
         {
-            Console.WriteLine("HILLCIMBING DUPA");
+            // TODO IMPLEMENTATION
+            Console.WriteLine("HILLCIMBIN");
         }
     }
 }

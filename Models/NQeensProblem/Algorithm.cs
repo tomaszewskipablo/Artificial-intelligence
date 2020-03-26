@@ -14,5 +14,10 @@ namespace ArtificialIntelligence.Models
         {
             this.solution = solution;
         }
+
+        public void DoAlgorithm()
+        {
+            solution.solve();
+        }
     }
 }
