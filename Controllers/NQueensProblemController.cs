@@ -61,10 +61,11 @@ namespace ArtificialIntelligence.Controllers
             }
 
             Chessboard chessboard = new Chessboard(size);
-            Algorithm.SetChessborad(chessboard);
+            chessboard.randomizeChessboard();
+            algorithm.SetChessboard(chessboard);
 
-           
-                return View("Index", chessboard);           
+
+            return View("Index", algorithm.GetChessboard()); ;           
         }
 
         public IActionResult displayChessboard()

@@ -31,9 +31,9 @@ namespace ArtificialIntelligence.Models
             return chessboard;
         }
 
-        public void DoAlgorithm()
+        public Chessboard DoAlgorithm()
         {
-            solution.solve();
+            return (solution.solve(param1, param2, param3, param4, param5, chessboard));
         }
     }
 }

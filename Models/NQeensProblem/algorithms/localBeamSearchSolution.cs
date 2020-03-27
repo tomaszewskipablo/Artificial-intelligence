@@ -7,10 +7,12 @@ namespace ArtificialIntelligence.Models
 {
     public class localBeamSearchSolution : ISolution
     {
-        public void solve()
+        public Chessboard solve(int param1, int param2, int param3, int param4, int param5, Chessboard board)
         {
-            // TODO IMPLEMENTATION
-            Console.WriteLine("");
+            Chessboard chessboard = board;
+
+
+            return chessboard;
         }
     }
 }

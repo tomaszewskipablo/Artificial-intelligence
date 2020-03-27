@@ -7,14 +7,14 @@ namespace ArtificialIntelligence.Models
 {
     public class GeneticAlgorithmSolution : ISolution
     {
-        public Chessboard solve(int param1, int param2, int param3, int param4, int param5, Chessboard chessboard)
+        public Chessboard solve(int param1, int param2, int param3, int param4, int param5, Chessboard board)
         {
             Chessboard chessboard = board;
-            // TOIMLEMNET
-            Console.WriteLine("HILLCIMBING");
+
 
             return chessboard;
         }
 
     }
+
 }
