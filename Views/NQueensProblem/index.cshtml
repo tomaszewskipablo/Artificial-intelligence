@@ -1,9 +1,10 @@
-﻿@model Chessboard
+﻿@model Algorithm
 
 
 @{
-    int size = Model.size;
-    if (Model.size > 8)
+  
+    int size = Model.chessboard.size;
+    if (Model.chessboard.size > 8)
         size = 8;
     double square = 25 * (10 - size)*0.76;
     string squareSize = square + "px";
@@ -48,7 +49,7 @@
             <div class="col-lg-7">
                 <div class="chessboard">
                     @{
-                        for (int i = 0; i < Model.size + 1; i++)
+                        for (int i = 0; i < size + 1; i++)
                         {
                             if (i == 0)
                             {
@@ -66,10 +67,10 @@
                             }
                         }
                         <br />
-                        for (int i = 0; i < Model.size; i++)
+                        for (int i = 0; i < size; i++)
                         {
                             <div class="square-number" style="vertical-align:top;">@(i+1)</div>
-                            for (int j = 0; j < Model.size; j++)
+                            for (int j = 0; j < size; j++)
                             {
                                 if ((i + j) % 2 == 1)
                                 {

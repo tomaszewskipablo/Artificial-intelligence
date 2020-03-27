@@ -8,8 +8,24 @@ namespace ArtificialIntelligence.Models
 {
     public class Algorithm
     {
+        private static Algorithm instance = null;
+        private Algorithm() { }
+
+        public static Algorithm Instance 
+        {
+            get
+            {
+                if(instance==null)
+                {
+                    instance = new Algorithm();
+                }
+                return instance;
+            }
+        }
+
+
         private ISolution solution;
-        private Chessboard chessboard;
+        public  Chessboard chessboard;
 
         private IParams parameters;
 

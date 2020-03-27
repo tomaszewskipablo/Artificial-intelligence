@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ArtificialIntelligence.Models;
-
 using ArtificialIntelligence.Models.NQeensProblem.Parameters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,10 +15,11 @@ namespace ArtificialIntelligence.Controllers
 
         public IActionResult Index()
         {
-
+            Algorithm algorithm = Algorithm.Instance;
             Chessboard chessboard = new Chessboard(6);
-            return View(chessboard);
-            //return View();
+            algorithm.SetChessboard(chessboard);
+
+            return View("Index", algorithm); ;
         }
 
         [HttpPost]
@@ -27,7 +27,7 @@ namespace ArtificialIntelligence.Controllers
         {
             int size = int.Parse(formCollection["size"]);
 
-            Algorithm algorithm = new Algorithm();
+            Algorithm algorithm = Algorithm.Instance;
 
             var algorithmSort = formCollection["algorithm"];
             if (algorithmSort == "hillClimbing")
@@ -64,6 +64,8 @@ namespace ArtificialIntelligence.Controllers
                 parameters.mutationProbability = int.Parse(formCollection["mutationProbability"]);
                 parameters.numberOfGenerations = int.Parse(formCollection["numberOfGenerations"]);
 
+                algorithm.SetParameters(parameters);
+
                 GeneticAlgorithmSolution geneticAlgorithmSolution = new GeneticAlgorithmSolution();
                 algorithm.SetSolution(geneticAlgorithmSolution);
 
@@ -74,7 +76,7 @@ namespace ArtificialIntelligence.Controllers
             algorithm.SetChessboard(chessboard);
 
 
-            return View("Index", algorithm.GetChessboard()); ;
+            return View("Index", algorithm); ;
         }
 
         [HttpPost]
