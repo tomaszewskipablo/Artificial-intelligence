@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ArtificialIntelligence.Models;
+
+using ArtificialIntelligence.Models.NQeensProblem.Parameters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,43 +23,50 @@ namespace ArtificialIntelligence.Controllers
         }
 
         [HttpPost]
-        public IActionResult NewSize(IFormCollection formCollection)
-        {            
-           int size = int.Parse(formCollection["size"]);
+        public IActionResult DoAlgorithm(IFormCollection formCollection)
+        {
+            int size = int.Parse(formCollection["size"]);
 
             Algorithm algorithm = new Algorithm();
 
             var algorithmSort = formCollection["algorithm"];
             if (algorithmSort == "hillClimbing")
             {
+                HillClimbingParameters parameters = new HillClimbingParameters();
+                parameters.maxNumberOfSteps = int.Parse(formCollection["maxNumberOfSteps"]);
+                algorithm.SetParameters(parameters);
                 HillClimbingSolution hillClimbingSolution = new HillClimbingSolution();
                 algorithm.SetSolution(hillClimbingSolution);
             }
-            else if(algorithmSort == "simulatedAnnealing")
+            else if (algorithmSort == "simulatedAnnealing")
             {
-                algorithm.param1 = int.Parse(formCollection["coolingFactor"]);
-                algorithm.param2 = int.Parse(formCollection["startingTemperature"]);
-
                 simulatedAnnealingSolution simulatedAnnealingSolution = new simulatedAnnealingSolution();
+                SimulatedAnnealingParameters parameters = new SimulatedAnnealingParameters();
+                parameters.coolingFactor = int.Parse(formCollection["coolingFactor"]);
+                parameters.startingTemperature = int.Parse(formCollection["startingTemperature"]);
                 algorithm.SetSolution(simulatedAnnealingSolution);
+                algorithm.SetParameters(parameters);
             }
             else if (algorithmSort == "localBeamSearch")
             {
-                algorithm.param1 = int.Parse(formCollection["numberOfStates"]);
-
+                localBeamSearchParameters parameters = new localBeamSearchParameters();
+                parameters.numberOfStates = int.Parse(formCollection["numberOfStates"]);
+                algorithm.SetParameters(parameters);
                 localBeamSearchSolution localBeamSearchSolution = new localBeamSearchSolution();
                 algorithm.SetSolution(localBeamSearchSolution);
             }
             else  // geneticAlgorithms
             {
-                algorithm.param1 = int.Parse(formCollection["sizeOfASingleGeneration"]);
-                algorithm.param2 = int.Parse(formCollection["percentOfElitism"]);
-                algorithm.param3 = int.Parse(formCollection["crossoverProbability"]);
-                algorithm.param4 = int.Parse(formCollection["mutationProbability"]);
-                algorithm.param5 = int.Parse(formCollection["numberOfGenerations"]);
+                GeneticAlgorithmParameters parameters = new GeneticAlgorithmParameters();
+                parameters.sizeOfASingleGeneration = int.Parse(formCollection["sizeOfASingleGeneration"]);
+                parameters.percentOfElitism = int.Parse(formCollection["percentOfElitism"]);
+                parameters.crossoverProbability = int.Parse(formCollection["crossoverProbability"]);
+                parameters.mutationProbability = int.Parse(formCollection["mutationProbability"]);
+                parameters.numberOfGenerations = int.Parse(formCollection["numberOfGenerations"]);
 
                 GeneticAlgorithmSolution geneticAlgorithmSolution = new GeneticAlgorithmSolution();
                 algorithm.SetSolution(geneticAlgorithmSolution);
+
             }
 
             Chessboard chessboard = new Chessboard(size);
@@ -65,13 +74,30 @@ namespace ArtificialIntelligence.Controllers
             algorithm.SetChessboard(chessboard);
 
 
-            return View("Index", algorithm.GetChessboard()); ;           
+            return View("Index", algorithm.GetChessboard()); ;
         }
+
+        [HttpPost]
+        public IActionResult RandomChessboard(IFormCollection formCollection)
+        {
+            int size = 8;
+
+
+
+            Chessboard chessboard = new Chessboard(size);
+            chessboard.randomizeChessboard();
+            //algorithm.SetChessboard(chessboard);
+
+
+            return View("Index", chessboard); ;
+        }
+
 
         public IActionResult displayChessboard()
         {
             Chessboard chessboard = new Chessboard(9);
             return View(chessboard);
         }
+
     }
 }
