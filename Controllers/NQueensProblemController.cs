@@ -23,41 +23,47 @@ namespace ArtificialIntelligence.Controllers
         [HttpPost]
         public IActionResult NewSize(IFormCollection formCollection)
         {            
-                int size = int.Parse(formCollection["size"]);
+           int size = int.Parse(formCollection["size"]);
 
             Algorithm algorithm = new Algorithm();
 
-            var algorithm1 = formCollection["algorithm"];
-            if (algorithm1 == "hillClimbing")
+            var algorithmSort = formCollection["algorithm"];
+            if (algorithmSort == "hillClimbing")
             {
                 HillClimbingSolution hillClimbingSolution = new HillClimbingSolution();
                 algorithm.SetSolution(hillClimbingSolution);
             }
-            else if(algorithm1 == "simulatedAnnealing")
+            else if(algorithmSort == "simulatedAnnealing")
             {
-                var coolingFactor = formCollection["coolingFactor"];
-                var startingTemperature = formCollection["startingTemperature"];
+                algorithm.param1 = int.Parse(formCollection["coolingFactor"]);
+                algorithm.param2 = int.Parse(formCollection["startingTemperature"]);
 
                 simulatedAnnealingSolution simulatedAnnealingSolution = new simulatedAnnealingSolution();
                 algorithm.SetSolution(simulatedAnnealingSolution);
             }
-            else if (algorithm1 == "localBeamSearch")
+            else if (algorithmSort == "localBeamSearch")
             {
-                var numberOfStates = formCollection["numberOfStates"];
+                algorithm.param1 = int.Parse(formCollection["numberOfStates"]);
+
                 localBeamSearchSolution localBeamSearchSolution = new localBeamSearchSolution();
                 algorithm.SetSolution(localBeamSearchSolution);
             }
             else  // geneticAlgorithms
             {
-                var sizeOfASingleGeneration = formCollection["sizeOfASingleGeneration"];
-                var percentOfElitism = formCollection["percentOfElitism"];
-                var crossoverProbability = formCollection["crossoverProbability"];
-                var mutationProbability = formCollection["mutationProbability"];
-                var numberOfGenerations = formCollection["numberOfGenerations"];
+                algorithm.param1 = int.Parse(formCollection["sizeOfASingleGeneration"]);
+                algorithm.param2 = int.Parse(formCollection["percentOfElitism"]);
+                algorithm.param3 = int.Parse(formCollection["crossoverProbability"]);
+                algorithm.param4 = int.Parse(formCollection["mutationProbability"]);
+                algorithm.param5 = int.Parse(formCollection["numberOfGenerations"]);
+
+                GeneticAlgorithmSolution geneticAlgorithmSolution = new GeneticAlgorithmSolution();
+                algorithm.SetSolution(geneticAlgorithmSolution);
             }
 
-
             Chessboard chessboard = new Chessboard(size);
+            Algorithm.SetChessborad(chessboard);
+
+           
                 return View("Index", chessboard);           
         }
 

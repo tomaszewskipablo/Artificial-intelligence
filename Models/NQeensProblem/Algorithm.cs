@@ -10,9 +10,25 @@ namespace ArtificialIntelligence.Models
         private ISolution solution;
         private Chessboard chessboard;
 
+        // 5 variables
+        public int param1;
+        public int param2;
+        public int param3;
+        public int param4;
+        public int param5;
+
         public void SetSolution(ISolution solution)
         {
             this.solution = solution;
+        }
+
+        public void SetChessboard(Chessboard chessboard)
+        {
+            this.chessboard = chessboard;
+        }
+        public Chessboard GetChessboard()
+        {
+            return chessboard;
         }
 
         public void DoAlgorithm()

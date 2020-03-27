@@ -49,4 +49,6 @@ function geneticAlgorithmsClicked() {
     displayNoneVariables()
     displayBlockVariables();
     document.getElementById("geneticAlgorithmsVar").style.display = "block";
+
+    document.getElementById("algorithm").value = "geneticAlgorithm";
 }

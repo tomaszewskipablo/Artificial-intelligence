@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace ArtificialIntelligence.Models
 {
-    public class simulatedAnnealingSolution : ISolution
+    public class GeneticAlgorithmSolution : ISolution
     {
         public void solve()
         {
             // TODO IMPLEMENTATION
-            Console.WriteLine("HILLCIMBIN");
+            Console.WriteLine("");
         }
     }
 }
