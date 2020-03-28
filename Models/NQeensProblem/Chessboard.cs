@@ -58,6 +58,9 @@ namespace ArtificialIntelligence.Models
 
             return false;
         }
-
+        public bool isQueenOnBox(int i, int j)
+        {
+            return borad[i, j];
+        }
     }
 }
