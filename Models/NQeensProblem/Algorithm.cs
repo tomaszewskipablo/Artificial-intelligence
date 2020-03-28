@@ -1,4 +1,5 @@
 ﻿using ArtificialIntelligence.Models.NQeensProblem;
+using ArtificialIntelligence.Models.NQeensProblem.Parameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace ArtificialIntelligence.Models
     {
         private static Algorithm instance = null;
         private Algorithm() { }
-
+        
         public static Algorithm Instance 
         {
             get
@@ -28,10 +29,19 @@ namespace ArtificialIntelligence.Models
         public  Chessboard chessboard;
 
         private IParams parameters;
+        public String name;
 
+        public IParams GetParams()
+        {
+            return parameters;
+        }
         public void SetSolution(ISolution solution)
         {
             this.solution = solution;
+        }
+        public ISolution GetSolution()
+        {
+            return solution;
         }
 
         public void SetParameters(IParams parameters)
@@ -51,7 +61,7 @@ namespace ArtificialIntelligence.Models
             return chessboard;
         }
 
-        public Chessboard DoAlgorithm()
+        public Chessboard SolveProblem()
         {
             return (solution.solve(chessboard, parameters));
         }

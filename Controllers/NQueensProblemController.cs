@@ -15,19 +15,19 @@ namespace ArtificialIntelligence.Controllers
 
         public IActionResult Index()
         {
+            
             Algorithm algorithm = Algorithm.Instance;
             Chessboard chessboard = new Chessboard(6);
             algorithm.SetChessboard(chessboard);
 
-            return View("Index", algorithm); ;
+            return View("Index", algorithm); 
         }
 
         [HttpPost]
         public IActionResult DoAlgorithm(IFormCollection formCollection)
         {
-            int size = int.Parse(formCollection["size"]);
-
             Algorithm algorithm = Algorithm.Instance;
+
 
             var algorithmSort = formCollection["algorithm"];
             if (algorithmSort == "hillClimbing")
@@ -68,13 +68,11 @@ namespace ArtificialIntelligence.Controllers
 
                 GeneticAlgorithmSolution geneticAlgorithmSolution = new GeneticAlgorithmSolution();
                 algorithm.SetSolution(geneticAlgorithmSolution);
-
+                //algorithm.name = "Genetic Algorithm";
             }
 
-            Chessboard chessboard = new Chessboard(size);
-            chessboard.randomizeChessboard();
-            algorithm.SetChessboard(chessboard);
-
+            // DO ALL ALGORITHMS HERE
+            algorithm.SolveProblem();
 
             return View("Index", algorithm); ;
         }
@@ -82,16 +80,18 @@ namespace ArtificialIntelligence.Controllers
         [HttpPost]
         public IActionResult RandomChessboard(IFormCollection formCollection)
         {
-            int size = 8;
 
-
-
+            int size = int.Parse(formCollection["size"]);
+        
             Chessboard chessboard = new Chessboard(size);
             chessboard.randomizeChessboard();
-            //algorithm.SetChessboard(chessboard);
+            
+
+            Algorithm algorithm = Algorithm.Instance;
+            algorithm.SetChessboard(chessboard);
 
 
-            return View("Index", chessboard); ;
+            return View("algorithm", algorithm); ;
         }
 
 

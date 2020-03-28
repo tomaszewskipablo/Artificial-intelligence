@@ -3,6 +3,7 @@
 
 // Write your JavaScript code.
 
+
 function displayNoneVariables() {
     document.getElementById("chooseBoradSize").style.display = "none";
     document.getElementById("labelInsertVariables").style.display = "none";
@@ -17,6 +18,7 @@ function displayBlockVariables()
 {
     document.getElementById("chooseBoradSize").style.display = "block";
     document.getElementById("labelInsertVariables").style.display = "block";
+   
 
 }
 
@@ -27,6 +29,7 @@ function hillClimbingClicked() {
     document.getElementById("chooseBoradSize").style.display = "block";
 
     document.getElementById("algorithm").value = "hillClimbing";
+    fillful();
 }
 
 function simulatedAnnealingClicked() {
@@ -51,4 +54,6 @@ function geneticAlgorithmsClicked() {
     document.getElementById("geneticAlgorithmsVar").style.display = "block";
 
     document.getElementById("algorithm").value = "geneticAlgorithm";
+    fillful();
 }
+
