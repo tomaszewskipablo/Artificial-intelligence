@@ -45,7 +45,7 @@
                 @using (Html.BeginForm("randomChessboard", "NQueensProblem", FormMethod.Post))
                 {
                     <label for="size">Change board size</label>
-                    <select id="size" name="size" class="form-control">
+                    <select id="size" name="size" class="form-control">                        
                         <option selected>4</option>
                         <option>5</option>
                         <option>6</option>
@@ -55,6 +55,7 @@
                         <option>10</option>
                         <option>11</option>
                         <option>12</option>
+
                     </select>
 
                     <button type="submit" class="btn btn-outline-secondary" style="margin-top: 15px; margin-bottom: 15px">
@@ -177,6 +178,16 @@
 
         </div>
     </div>
+
+    
+        @*var sel = document.getElementById("size");
+        var opts = sel.options;
+        for (var opt, j = 0; opt = opts[j]; j++) {
+            if (opt.value == val) {
+                sel.selectedIndex = @Model.chessboard.size;
+                break;
+            }
+        }*@
 
 
     <style>

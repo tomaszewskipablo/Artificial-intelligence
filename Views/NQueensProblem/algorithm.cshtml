@@ -18,6 +18,7 @@
                 string min_sizeStr = min_size + "px";
                 double font = 15 * (10 - size) * 0.8;
                 string fontSize = font + "px";
+                int minPossibleSizeOfBorad = 4;
                 ViewData["Title"] = "Home Page";
 
 
@@ -114,7 +115,7 @@
                 {
                     <label for="size">Change board size</label>
                     <select id="size" name="size" class="form-control">
-                        <option selected>4</option>
+                        <option>4</option>
                         <option>5</option>
                         <option>6</option>
                         <option>7</option>
@@ -211,6 +212,9 @@
         </div>
     </div>
 
+    <script>
+        document.getElementById("size").options.selectedIndex = @Model.chessboard.size-@minPossibleSizeOfBorad;
+    </script>
 
     <style>
 
