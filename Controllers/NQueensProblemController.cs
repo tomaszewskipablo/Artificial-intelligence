@@ -91,7 +91,7 @@ namespace ArtificialIntelligence.Controllers
             algorithm.SetChessboard(chessboard);
 
 
-            return View("algorithm", algorithm); ;
+            return View("index", algorithm); ;
         }
 
 

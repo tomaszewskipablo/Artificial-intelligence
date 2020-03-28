@@ -10,18 +10,88 @@
         size = 8;
     double square = 25 * (10 - size) * 0.76;
     string squareSize = square + "px";
+    double image = square - 15;
+    string imageSize = image + "px";
+    double padding = 11 - size;
+    string paddingSize = padding + "px";
+    double min_size = square * (Model.chessboard.size + 1);
+    string min_sizeStr = min_size + "px";
     double font = 15 * (10 - size) * 0.8;
     string fontSize = font + "px";
+    int minPossibleSizeOfBorad = 4;
     ViewData["Title"] = "Home Page";
 
 
+    bool isQueenOnBox(int i, int j)
+    {
+        return Model.chessboard.isQueenOnBox(i, j);
+        //return true;
+    }
 
+    void displayChessboard()
+    {
+        for (int i = 0; i < @Model.chessboard.size + 1; i++)
+        {
+            if (i == 0)
+            {
+                <div class="square-number" style="color: white">0</div>
+            }
+            else
+            {
+                char sign = Convert.ToChar(i + 'A' - 1);
+                <div class="square-number">
+
+                    <div class="number">
+                        @sign
+                    </div>
+                </div>
+            }
+        }
+        <br />
+        for (int i = 0; i < @Model.chessboard.size; i++)
+        {
+            <div class="square-number" style="vertical-align:top;">@(i+1)</div>
+            for (int j = 0; j < @Model.chessboard.size; j++)
+            {
+                if ((i + j) % 2 == 1)
+
+                {
+                    if (isQueenOnBox(i, j))
+                    {
+                        <div class="square-0">
+
+                            <a href="https://imgbb.com/"><img src="https://i.ibb.co/JxZBLTK/crown-1.png" alt="crown-1" border="0"></a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="square-0"></div>
+                    }
+                }
+                else
+                {
+                    if (isQueenOnBox(i, j))
+                    {
+                        <div class="square-1">
+                            <a href="https://imgbb.com/"><img src="https://i.ibb.co/JxZBLTK/crown-1.png" alt="crown-1" border="0"></a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="square-1"></div>
+                    }
+                }
+            }
+            <br />
+        }
+        <br />
+    }
 }
 
 
+
 <div class="text-center">
-    <h1 class="display-4">N Queens Problem</h1>
-    
+    <h1 class="display-4">Queens Problem</h1>
     @*<p>On the N-queens problem, implement the hill-climbing, simulated annealing, local beam search and genetic algorithms. Research the algorithms using the web. The application must have a graphical user interface and you must enable the user to change algorithm parameters. For simulated annealing, the user should be able to change the starting temperature and the cooling factor. For local beam search, the user should be able to change the number of states. For the genetic algorithm, the user should be able to change the size of a single generation, the percent of elitism, the crossover probability, the mutation probability and the number of generations.</p>*@
 </div>
 
@@ -32,7 +102,7 @@
                 <br />
                 <br />
                 <br />
-                <div style="visibility:hidden">
+                <div id="buttonsForChoosingAlgorithm" style="visibility:hidden ">
                     <label>Choose algorithm to perform: </label>
                     <button type="button" onclick="hillClimbingClicked()" id="btn-hill-climbing" class="btn btn-outline-primary btn-block">hill-climbing</button>
                     <button type="button" onclick="simulatedAnnealingClicked()" class="btn btn-outline-secondary btn-block">simulated annealing</button>
@@ -45,8 +115,8 @@
                 @using (Html.BeginForm("randomChessboard", "NQueensProblem", FormMethod.Post))
                 {
                     <label for="size">Change board size</label>
-                    <select id="size" name="size" class="form-control">                        
-                        <option selected>4</option>
+                    <select id="size" name="size" class="form-control">
+                        <option>4</option>
                         <option>5</option>
                         <option>6</option>
                         <option>7</option>
@@ -55,7 +125,6 @@
                         <option>10</option>
                         <option>11</option>
                         <option>12</option>
-
                     </select>
 
                     <button type="submit" class="btn btn-outline-secondary" style="margin-top: 15px; margin-bottom: 15px">
@@ -68,46 +137,11 @@
 
 
 
-            <div class="col-lg-7">
+            <div class="col-lg-7" style="min-width: @min_sizeStr">
                 <div class="chessboard">
                     @{
-                        for (int i = 0; i < @Model.chessboard.size + 1; i++)
-                        {
-                            if (i == 0)
-                            {
-                                <div class="square-number" style="color: white">0</div>
-                            }
-                            else
-                            {
-                                char sign = Convert.ToChar(i + 'A' - 1);
-                                <div class="square-number">
-
-                                    <div class="number">
-                                        @sign
-                                    </div>
-                                </div>
-                            }
-                        }
-                        <br />
-                        for (int i = 0; i < @Model.chessboard.size; i++)
-                        {
-                            <div class="square-number" style="vertical-align:top;">@(i+1)</div>
-                            for (int j = 0; j < @Model.chessboard.size; j++)
-                            {
-                                if ((i + j) % 2 == 1)
-                                {
-                                    <div class="square-0"></div>
-                                }
-                                else
-                                {
-                                    <div class="square-1"></div>
-                                }
-                            }
-                            <br />
-                        }
+                        displayChessboard();
                     }
-
-
                 </div>
             </div>
 
@@ -179,16 +213,16 @@
         </div>
     </div>
 
-    
-        @*var sel = document.getElementById("size");
-        var opts = sel.options;
-        for (var opt, j = 0; opt = opts[j]; j++) {
-            if (opt.value == val) {
-                sel.selectedIndex = @Model.chessboard.size;
-                break;
-            }
-        }*@
+    <script>
+        document.getElementById("size").options.selectedIndex = @Model.chessboard.size-@minPossibleSizeOfBorad;
 
+        if (@Model.chessboard.QueensOnBoard == 1) {
+            document.getElementById("buttonsForChoosingAlgorithm").style.visibility = "visible";
+        }
+
+
+
+    </script>
 
     <style>
 
@@ -197,6 +231,9 @@
         width: @squareSize;
         height:  @squareSize;
         border-radius: 10px;
+        vertical-align:text-top;
+        text-align:center;
+        padding:@paddingSize;
 
     }
     .square-0 {
@@ -210,13 +247,17 @@
     }
         .square-number {
             background-color: white;
-            font-size:
-    @fontSize;
+            font-size: @fontSize;
+            padding: 0px;
         }
     .number {
         text-align:center;
        margin:auto;
     }
+        img {
+            width: @imageSize;
+            height: @imageSize;
+        }
 
     </style>
 

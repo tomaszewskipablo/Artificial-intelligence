@@ -8,7 +8,7 @@ namespace ArtificialIntelligence.Models
     public class Chessboard
     {
         bool [,] borad;
-       
+        public int QueensOnBoard=0;
         public int size=4;
 
         public Chessboard(int size)
@@ -48,7 +48,7 @@ namespace ArtificialIntelligence.Models
 
                 borad[indexesOfHetmens[i] / size, indexesOfHetmens[i] % size] = true;
             }
-
+            QueensOnBoard = 1;
         }
         private bool indexesOfHetmensInArray(int random, int [] indexesOfHetmens)
         {
