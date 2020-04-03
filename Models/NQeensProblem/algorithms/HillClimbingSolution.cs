@@ -1,4 +1,5 @@
 ﻿using ArtificialIntelligence.Models.NQeensProblem;
+using ArtificialIntelligence.Models.NQeensProblem.Parameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,10 @@ namespace ArtificialIntelligence.Models
     {
         public Chessboard solve(Chessboard board, IParams iparams)
         {
+            HillClimbingParameters parameters = (HillClimbingParameters)iparams;
+            
 
             int[] inputArray = new int[board.size];
-            
-                
 
             int[] heuristic = new int[board.size];
             int step = 0;
@@ -34,7 +35,7 @@ namespace ArtificialIntelligence.Models
                     SetPiceToMinHeuristic(heuristic, board.board, i);
                 }
 
-                if(board.Heuristic() == 0)
+                if(board.Heuristic() == 0 || parameters.maxNumberOfSteps <= step)
                 { 
                      return board;
                 }
@@ -44,10 +45,6 @@ namespace ArtificialIntelligence.Models
                 }    
 
             } while (true);
-
-            
-
-            return board;
         }
         private void SetPiceToMinHeuristic(int[] heuristic, int[] board, int i)
         {

@@ -19,7 +19,7 @@ namespace ArtificialIntelligence.Controllers
             Chessboard chessboard = new Chessboard(4);
             algorithm.SetChessboard(chessboard);
 
-            return View("Index", algorithm); 
+            return View("Index", algorithm);
         }
 
         [HttpPost]
@@ -32,7 +32,14 @@ namespace ArtificialIntelligence.Controllers
             if (algorithmSort == "hillClimbing")
             {
                 HillClimbingParameters parameters = new HillClimbingParameters();
-                parameters.maxNumberOfSteps = int.Parse(formCollection["maxNumberOfSteps"]);
+                try
+                {
+                    parameters.maxNumberOfSteps = int.Parse(formCollection["maxNumberOfSteps"]);
+                }
+                catch
+                {
+                    parameters.maxNumberOfSteps = 50;
+                }
                 algorithm.SetParameters(parameters);
                 HillClimbingSolution hillClimbingSolution = new HillClimbingSolution();
                 algorithm.SetSolution(hillClimbingSolution);
@@ -80,10 +87,10 @@ namespace ArtificialIntelligence.Controllers
         public IActionResult RandomChessboard(IFormCollection formCollection)
         {
             int size = int.Parse(formCollection["size"]);
-        
+
             Chessboard chessboard = new Chessboard(size);
             chessboard.RandomizeChessboard();
-            
+
 
             Algorithm algorithm = Algorithm.Instance;
             algorithm.SetChessboard(chessboard);
