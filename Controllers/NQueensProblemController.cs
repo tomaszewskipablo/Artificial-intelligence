@@ -80,11 +80,10 @@ namespace ArtificialIntelligence.Controllers
         [HttpPost]
         public IActionResult RandomChessboard(IFormCollection formCollection)
         {
-
             int size = int.Parse(formCollection["size"]);
         
             Chessboard chessboard = new Chessboard(size);
-            chessboard.randomizeChessboard();
+            chessboard.RandomizeChessboard();
             
 
             Algorithm algorithm = Algorithm.Instance;
