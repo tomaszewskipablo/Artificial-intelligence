@@ -7,60 +7,42 @@ namespace ArtificialIntelligence.Models
 {
     public class Chessboard
     {
-        bool [,] borad;
+        int[] board;
         public int QueensOnBoard=0;
         public int size=4;
 
         public Chessboard(int size)
         {
             this.size = size;
-            borad = new bool[size,size];
+            board = new int[size];
 
-            // initialize with 0 
-            for (int i=0;i<size;i++)
-            {
-                for (int j = 0; j < size; j++)
-                {
-                    borad[i,j] = false;
-                }
-            }
+            //// initialize with 0 
+            //for (int i=0;i<size;i++)
+            //{
+            //    for (int j = 0; j < size; j++)
+            //    {
+            //        borad[i] = false;
+            //    }
+            //}
         }
         public void randomizeChessboard()
         {
             Random rnd = new Random();
 
-            int [] indexesOfHetmens = new int[size];
+            board = new int[size];
+            
 
-            for (int i = 0; i < size; i++)
+            for (int i = 0;i<size;i++)
             {
-                int random = rnd.Next(0, size * size);
-                if (!indexesOfHetmensInArray(random, indexesOfHetmens))
-                {
-                    indexesOfHetmens[i] = random;
-                }
-                else
-                {
-                    i--;
-                }
-            }
-            for (int i = 0; i < size; i++)
-            {
-
-                borad[indexesOfHetmens[i] / size, indexesOfHetmens[i] % size] = true;
+                int random = rnd.Next(0, size);
+                board[i] = random;
             }
             QueensOnBoard = 1;
         }
-        private bool indexesOfHetmensInArray(int random, int [] indexesOfHetmens)
-        {
-            for (int i = 0; i < size; i++)
-                if (indexesOfHetmens[i] == random)
-                    return true;
 
-            return false;
-        }
         public bool isQueenOnBox(int i, int j)
         {
-            return borad[i, j];
+            return board[j] == i;
         }
     }
 }

@@ -20,8 +20,6 @@ namespace ArtificialIntelligence.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.matus = 5;
-            
             return View();
         }
 
