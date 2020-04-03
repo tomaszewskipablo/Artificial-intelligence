@@ -29,6 +29,8 @@ function hillClimbingClicked() {
     document.getElementById("chooseBoradSize").style.display = "block";
 
     document.getElementById("algorithm").value = "hillClimbing";
+    document.getElementById("hillClimbingVar").style.display = "block";
+    
     fillful();
 }
 

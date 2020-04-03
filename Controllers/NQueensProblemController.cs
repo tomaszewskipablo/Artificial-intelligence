@@ -15,7 +15,6 @@ namespace ArtificialIntelligence.Controllers
 
         public IActionResult Index()
         {
-            
             Algorithm algorithm = Algorithm.Instance;
             Chessboard chessboard = new Chessboard(4);
             algorithm.SetChessboard(chessboard);
@@ -33,7 +32,7 @@ namespace ArtificialIntelligence.Controllers
             if (algorithmSort == "hillClimbing")
             {
                 HillClimbingParameters parameters = new HillClimbingParameters();
-                //parameters.maxNumberOfSteps = int.Parse(formCollection["maxNumberOfSteps"]);
+                parameters.maxNumberOfSteps = int.Parse(formCollection["maxNumberOfSteps"]);
                 algorithm.SetParameters(parameters);
                 HillClimbingSolution hillClimbingSolution = new HillClimbingSolution();
                 algorithm.SetSolution(hillClimbingSolution);
