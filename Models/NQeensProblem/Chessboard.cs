@@ -7,7 +7,7 @@ namespace ArtificialIntelligence.Models
 {
     public class Chessboard
     {
-        int[] board;
+        public int[] board;
         public int QueensOnBoard = 0;
         public int size = 4;
 
@@ -31,7 +31,6 @@ namespace ArtificialIntelligence.Models
                 board[i] = random;
             }
             QueensOnBoard = 1;
-            Heuristic();
         }
 
         public bool IsQueenOnBox(int i, int j)
