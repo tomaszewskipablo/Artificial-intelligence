@@ -10,6 +10,10 @@ namespace ArtificialIntelligence.Models
     {
         public Chessboard solve(Chessboard board, IParams iparams)
         {
+            localBeamSearchSolution parameters = (localBeamSearchSolution)iparams;
+
+            
+
             Chessboard chessboard = board;
 
 

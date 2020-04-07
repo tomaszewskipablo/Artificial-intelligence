@@ -89,7 +89,6 @@ namespace ArtificialIntelligence.Models
         {
             int queen = GetRandomQeenOnBoard();
 
-            int newPlace = GetRandomCordinateOnBoard();
 
             board[queen] = GetRandomCordinateOnBoard();
         }

@@ -13,9 +13,9 @@ namespace ArtificialIntelligence.Models
         {
             HillClimbingParameters parameters = (HillClimbingParameters)iparams;
             
-
+            
             int[] inputArray = new int[board.size];
-
+            
             int[] heuristic = new int[board.size];
             int step = 0;
             

@@ -13,8 +13,11 @@ namespace ArtificialIntelligence.Models
         {
             SimulatedAnnealingParameters parameters = new SimulatedAnnealingParameters();
 
+            int[] inputArray = new int[board.size];
             do
-            {
+            {                                
+                board.board.CopyTo(inputArray, 0);
+
                 int heuristicPrev = board.Heuristic();
 
                 board.MoveRandomlyOneQueen();
@@ -25,7 +28,7 @@ namespace ArtificialIntelligence.Models
 
                 if (heuristicAfter >= heuristicPrev)
                 {
-                    // TO DO
+                    inputArray.CopyTo(board.board, 0);
                 }
             } while (true);
 
