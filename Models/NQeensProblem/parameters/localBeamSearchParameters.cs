@@ -8,5 +8,6 @@ namespace ArtificialIntelligence.Models.NQeensProblem.Parameters
     public class localBeamSearchParameters : IParams
     {
         public int numberOfStates;
+        public int maxNumberOfSteps;
     }
 }

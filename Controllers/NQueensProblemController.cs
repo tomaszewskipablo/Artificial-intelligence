@@ -72,7 +72,24 @@ namespace ArtificialIntelligence.Controllers
             else if (algorithmSort == "localBeamSearch")
             {
                 localBeamSearchParameters parameters = new localBeamSearchParameters();
-                parameters.numberOfStates = int.Parse(formCollection["numberOfStates"]);
+                try
+                {
+                    parameters.numberOfStates = int.Parse(formCollection["numberOfStates"]);
+                }
+                catch
+                {
+                    parameters.numberOfStates = 10000;
+                }
+
+                try
+                {
+                    parameters.maxNumberOfSteps = int.Parse(formCollection["maxNumberOfSteps"]);
+                }
+                catch
+                {
+                    parameters.maxNumberOfSteps = 50;
+                }
+
                 algorithm.SetParameters(parameters);
                 localBeamSearchSolution localBeamSearchSolution = new localBeamSearchSolution();
                 algorithm.SetSolution(localBeamSearchSolution);
