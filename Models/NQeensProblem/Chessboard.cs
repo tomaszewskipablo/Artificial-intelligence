@@ -11,6 +11,7 @@ namespace ArtificialIntelligence.Models
         public int[] board;
         public int QueensOnBoard = 0;
         public int size = 4;
+        public bool isSolved;
 
         public Chessboard(int size)
         {

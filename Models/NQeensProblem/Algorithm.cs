@@ -31,6 +31,8 @@ namespace ArtificialIntelligence.Models
         private IParams parameters;
         public String name;
 
+        
+
         public IParams GetParams()
         {
             return parameters;

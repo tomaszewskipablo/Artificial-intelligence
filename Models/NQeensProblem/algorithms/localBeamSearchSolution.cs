@@ -36,6 +36,8 @@ namespace ArtificialIntelligence.Models
                 if (heuristicOfBest == 0)
                 {
                     board.board = States[indexOfBest].board;
+
+                    board.isSolved = true;
                     return board;
                 }
 

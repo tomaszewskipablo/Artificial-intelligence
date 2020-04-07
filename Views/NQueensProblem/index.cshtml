@@ -19,13 +19,22 @@
     double font = 15 * (10 - size) * 0.8;
     string fontSize = font + "px";
     int minPossibleSizeOfBorad = 4;
+
+    string isSolvedStr = "true";
+    if (Model.chessboard.isSolved == true)
+    {
+        isSolvedStr = "true";
+    }
+    else
+    {
+        isSolvedStr = "false";
+    }
     ViewData["Title"] = "Home Page";
 
 
     bool isQueenOnBox(int i, int j)
     {
         return Model.chessboard.IsQueenOnBox(i, j);
-        //return true;
     }
 
     void displayChessboard()
@@ -131,7 +140,7 @@
                         Random hetmans
                     </button>
                 }
-
+                <div id="results">Problem: @isSolvedStr</div>
             </div>
 
 
@@ -146,77 +155,78 @@
             </div>
 
             <div class="col-lg-2" id="chooseBoradSize" style="display:none ">
+
                 <br />
                 <br />
                 <br />
                 @using (Html.BeginForm("DoAlgorithm", "NQueensProblem", FormMethod.Post))
                 {
-            <center>
+                    <center>
 
-                <br />
-                <br />
-                <input name="algorithm" class="form-control" id="algorithm" display="none">
+                        <br />
+                        <br />
+                        <input name="algorithm" class="form-control" id="algorithm" display="none">
 
-                <h3><div id="labelInsertVariables" class="badge badge-secondary" style="display: none">Insert data:</div></h3>
+                        <h3><div id="labelInsertVariables" class="badge badge-secondary" style="display: none">Insert data:</div></h3>
 
-                <div id="hillClimbingVar" style="display: none">
-                    <div class="form-group">
-                        <input name="maxNumberOfSteps" PreviewTextInput="NumberValidationTextBox" class="form-control" id="firVar" aria-describedby="emailHelp">
-                        <small id="emailHelp" class="form-text text-muted">Cooling Factor</small>
-                    </div>
-                </div>
+                        <div id="hillClimbingVar" style="display: none">
+                            <div class="form-group">
+                                <input name="maxNumberOfSteps" PreviewTextInput="NumberValidationTextBox" class="form-control" id="firVar" aria-describedby="emailHelp">
+                                <small id="emailHelp" class="form-text text-muted">Cooling Factor</small>
+                            </div>
+                        </div>
 
-                <div id="simulatedAnnealingVar" style="display: none">
-                    <div class="form-group">
-                        <input name="coolingFactor" class="form-control" id="firVar" aria-describedby="emailHelp">
-                        <small id="emailHelp" class="form-text text-muted">Max number of steps</small>
-                    </div>
-                    <div class="form-group">
-                        <input name="startingTemperature" class="form-control" id="secVar" aria-describedby="emailHelp">
-                        <small id="emailHelp" class="form-text text-muted">Starting Temperature</small>
-                    </div>
-                </div>
+                        <div id="simulatedAnnealingVar" style="display: none">
+                            <div class="form-group">
+                                <input name="coolingFactor" class="form-control" id="firVar" aria-describedby="emailHelp">
+                                <small id="emailHelp" class="form-text text-muted">Max number of steps</small>
+                            </div>
+                            <div class="form-group">
+                                <input name="startingTemperature" class="form-control" id="secVar" aria-describedby="emailHelp">
+                                <small id="emailHelp" class="form-text text-muted">Starting Temperature</small>
+                            </div>
+                        </div>
 
-                <div id="localBeamSearchVar" style="display: none">
-                    <div class="form-group">
-                        <input name="numberOfStates" class="form-control" id="firVar" aria-describedby="emailHelp">
-                        <small id="emailHelp" class="form-text text-muted">Number of states</small>
-                    </div>
-                    <div class="form-group">
-                        <input name="maxNumberOfSteps" PreviewTextInput="NumberValidationTextBox" class="form-control" id="firVar" aria-describedby="emailHelp">
-                        <small id="emailHelp" class="form-text text-muted">Max number of steps</small>
-                    </div>
-                </div>
+                        <div id="localBeamSearchVar" style="display: none">
+                            <div class="form-group">
+                                <input name="numberOfStates" class="form-control" id="firVar" aria-describedby="emailHelp">
+                                <small id="emailHelp" class="form-text text-muted">Number of states</small>
+                            </div>
+                            <div class="form-group">
+                                <input name="maxNumberOfSteps" PreviewTextInput="NumberValidationTextBox" class="form-control" id="firVar" aria-describedby="emailHelp">
+                                <small id="emailHelp" class="form-text text-muted">Max number of steps</small>
+                            </div>
+                        </div>
 
-                <div id="geneticAlgorithmsVar" style="display: none">
-                    <div class="form-group">
-                        <input name="sizeOfASingleGeneration" id="sizeOfASingleGeneration" class="form-control" id="firVar" aria-describedby="emailHelp">
-                        <small class="form-text text-muted">Size of a single generation</small>
-                    </div>
-                    <div class="form-group">
-                        <input name="percentOfElitism" class="form-control" id="secVar" aria-describedby="emailHelp">
-                        <small id="emailHelp" class="form-text text-muted">Percent of elitism</small>
-                    </div>
-                    <div class="form-group">
-                        <input name="crossoverProbability" class="form-control" id="firVar" aria-describedby="emailHelp">
-                        <small id="emailHelp" class="form-text text-muted">Crossover probability</small>
-                    </div>
-                    <div class="form-group">
-                        <input name="mutationProbability" class="form-control" id="secVar" aria-describedby="emailHelp">
-                        <small id="emailHelp" class="form-text text-muted">Mutation probability</small>
-                    </div>
-                    <div class="form-group">
-                        <input name="numberOfGenerations" class="form-control" id="secVar" aria-describedby="emailHelp" placeholder="duapka">
-                        <small id="emailHelp" class="form-text text-muted">Number of generations</small>
-                    </div>
-                </div>
+                        <div id="geneticAlgorithmsVar" style="display: none">
+                            <div class="form-group">
+                                <input name="sizeOfASingleGeneration" id="sizeOfASingleGeneration" class="form-control" id="firVar" aria-describedby="emailHelp">
+                                <small class="form-text text-muted">Size of a single generation</small>
+                            </div>
+                            <div class="form-group">
+                                <input name="percentOfElitism" class="form-control" id="secVar" aria-describedby="emailHelp">
+                                <small id="emailHelp" class="form-text text-muted">Percent of elitism</small>
+                            </div>
+                            <div class="form-group">
+                                <input name="crossoverProbability" class="form-control" id="firVar" aria-describedby="emailHelp">
+                                <small id="emailHelp" class="form-text text-muted">Crossover probability</small>
+                            </div>
+                            <div class="form-group">
+                                <input name="mutationProbability" class="form-control" id="secVar" aria-describedby="emailHelp">
+                                <small id="emailHelp" class="form-text text-muted">Mutation probability</small>
+                            </div>
+                            <div class="form-group">
+                                <input name="numberOfGenerations" class="form-control" id="secVar" aria-describedby="emailHelp" placeholder="duapka">
+                                <small id="emailHelp" class="form-text text-muted">Number of generations</small>
+                            </div>
+                        </div>
 
 
-                <button type="submit" class="btn btn-outline-secondary" style="margin-top: 15px; margin-bottom: 15px">
-                    Solve problem
-                </button>
+                        <button type="submit" class="btn btn-outline-secondary" style="margin-top: 15px; margin-bottom: 15px">
+                            Solve problem
+                        </button>
 
-            </center>
+                    </center>
                 }
 
             </div>

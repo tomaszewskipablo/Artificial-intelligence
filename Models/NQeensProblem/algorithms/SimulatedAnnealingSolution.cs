@@ -45,10 +45,15 @@ namespace ArtificialIntelligence.Models
                   
             } while (heuristicAfter != 0 && parameters.startingTemperature > 0);
 
-
+            if(heuristicAfter==0)
+            {
+                board.isSolved = true;
+            }
+            else
+            {
+                board.isSolved = false;
+            }
             return board;
-
-
         }
         public double GenerateRandomVaule()
         {
