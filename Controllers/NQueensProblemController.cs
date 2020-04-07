@@ -48,8 +48,24 @@ namespace ArtificialIntelligence.Controllers
             {
                 simulatedAnnealingSolution simulatedAnnealingSolution = new simulatedAnnealingSolution();
                 SimulatedAnnealingParameters parameters = new SimulatedAnnealingParameters();
-                parameters.coolingFactor = int.Parse(formCollection["coolingFactor"]);
-                parameters.startingTemperature = int.Parse(formCollection["startingTemperature"]);
+                try
+                {
+                    parameters.coolingFactor = int.Parse(formCollection["coolingFactor"]);
+                }
+                catch
+                {
+                    parameters.coolingFactor = 1;
+                }
+
+                try
+                {
+                    parameters.startingTemperature = int.Parse(formCollection["startingTemperature"]);
+                }
+                catch
+                {
+                    parameters.startingTemperature = 10000;
+                }
+
                 algorithm.SetSolution(simulatedAnnealingSolution);
                 algorithm.SetParameters(parameters);
             }
