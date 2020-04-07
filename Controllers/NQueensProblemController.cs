@@ -78,7 +78,7 @@ namespace ArtificialIntelligence.Controllers
                 }
                 catch
                 {
-                    parameters.numberOfStates = 10000;
+                    parameters.numberOfStates = 3;
                 }
 
                 try

@@ -20,27 +20,70 @@ namespace ArtificialIntelligence.Models
                 States.Add(new Chessboard(board.size));
             }
 
-            int indexOfBest = 0;
-            int heuristicOfBest = States[0].Heuristic();
-            for (int i = 1; i < parameters.numberOfStates; i++)
+            do
             {
-                int iHeuristic = States[i].Heuristic();
-                if(iHeuristic < heuristicOfBest)
+                int indexOfBest = 0;
+                int heuristicOfBest = States[0].Heuristic();
+                for (int i = 1; i < parameters.numberOfStates; i++)
                 {
-                    indexOfBest = i;
+                    int iHeuristic = States[i].Heuristic();
+                    if (iHeuristic < heuristicOfBest)
+                    {
+                        indexOfBest = i;
+                        heuristicOfBest = iHeuristic;
+                    }
                 }
-            }
-            if(heuristicOfBest == 0)
+                if (heuristicOfBest == 0)
+                {
+                    board.board = States[indexOfBest].board;
+                    return board;
+                }
+
+                //Move queens in every column on theirs best local position in every state.
+                for (int s = 0; s < parameters.numberOfStates; s++)
+                {
+                    int[] inputArray = new int[board.size];
+
+                    int[] heuristic = new int[board.size];
+
+                    States[s].board.CopyTo(inputArray, 0);
+                    for (int i = 0; i < States[s].size; i++)
+                    {
+
+                        States[s].board[i] = 0;
+                        for (int j = 0; j < board.size; j++)
+                        {
+                            heuristic[j] = States[s].Heuristic();
+                            States[s].board[i] = j + 1;
+                        }
+                        SetPiceToMinHeuristic(heuristic, States[s].board, i);
+                    }
+                    if (AreArraysEqual(inputArray, States[s].board))
+                    {
+                        States[s].RandomizeChessboard();
+                    }
+                }
+            } while (true);
+        }
+
+        private void SetPiceToMinHeuristic(int[] heuristic, int[] board, int i)
+        {
+            // min value
+            int m = heuristic.Min();
+
+            // Positioning min
+            int p = Array.IndexOf(heuristic, m);
+
+            board[i] = p;
+        }
+        private bool AreArraysEqual(int[] a, int[] b)
+        {
+            for (int i = 0; i < a.Length; i++)
             {
-                return States[indexOfBest];
+                if (a[i] != b[i])
+                    return false;
             }
-
-
-
-                Chessboard chessboard = board;
-
-
-            return chessboard;
+            return true;
         }
     }
 }
