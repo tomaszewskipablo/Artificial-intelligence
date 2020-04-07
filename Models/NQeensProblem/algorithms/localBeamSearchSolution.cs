@@ -1,4 +1,5 @@
 ﻿using ArtificialIntelligence.Models.NQeensProblem;
+using ArtificialIntelligence.Models.NQeensProblem.Parameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,15 @@ namespace ArtificialIntelligence.Models
     {
         public Chessboard solve(Chessboard board, IParams iparams)
         {
-            localBeamSearchSolution parameters = (localBeamSearchSolution)iparams;
+            localBeamSearchParameters parameters = (localBeamSearchParameters)iparams;
 
-            
+            List<Chessboard> States = new List<Chessboard>();
+
+            for (int i = 0; i < parameters.numberOfStates; i++)
+            {
+                States.Add(new Chessboard(board.size));
+            }
+
 
             Chessboard chessboard = board;
 
