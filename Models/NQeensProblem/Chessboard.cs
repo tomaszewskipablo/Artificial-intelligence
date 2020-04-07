@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace ArtificialIntelligence.Models
 {
     public class Chessboard
@@ -44,7 +45,7 @@ namespace ArtificialIntelligence.Models
             int heuristic = 0;
             for (int i = 0; i < size; i++)
             {
-                
+
                 for (int j = i + 1; j < size; j++)
                 {
                     //hirizontaly
@@ -64,9 +65,34 @@ namespace ArtificialIntelligence.Models
                     {
                         heuristic++;
                     }
-                }  
-            }               
-                return heuristic;
+                }
+            }
+            return heuristic;
         }
+
+
+        public int GetRandomQeenOnBoard()
+        {
+            Random rnd = new Random();
+
+            return rnd.Next(0, size);
+        }
+
+
+        public int GetRandomCordinateOnBoard()
+        {
+
+            Random rnd = new Random();
+            return rnd.Next(0, size);
+        }
+        public void MoveRandomlyOneQueen()
+        {
+            int queen = GetRandomQeenOnBoard();
+
+            int newPlace = GetRandomCordinateOnBoard();
+
+            board[queen] = GetRandomCordinateOnBoard();
+        }
+
     }
 }
