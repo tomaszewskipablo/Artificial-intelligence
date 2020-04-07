@@ -20,8 +20,24 @@ namespace ArtificialIntelligence.Models
                 States.Add(new Chessboard(board.size));
             }
 
+            int indexOfBest = 0;
+            int heuristicOfBest = States[0].Heuristic();
+            for (int i = 1; i < parameters.numberOfStates; i++)
+            {
+                int iHeuristic = States[i].Heuristic();
+                if(iHeuristic < heuristicOfBest)
+                {
+                    indexOfBest = i;
+                }
+            }
+            if(heuristicOfBest == 0)
+            {
+                return States[indexOfBest];
+            }
 
-            Chessboard chessboard = board;
+
+
+                Chessboard chessboard = board;
 
 
             return chessboard;
