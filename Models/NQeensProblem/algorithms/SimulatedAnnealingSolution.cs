@@ -1,4 +1,5 @@
 ﻿using ArtificialIntelligence.Models.NQeensProblem;
+using ArtificialIntelligence.Models.NQeensProblem.Parameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,15 +9,34 @@ namespace ArtificialIntelligence.Models
 {
     public class simulatedAnnealingSolution : ISolution
     {
-        public Chessboard solve(Chessboard board,IParams iparams)
+        public Chessboard solve(Chessboard board, IParams iparams)
         {
-            Chessboard chessboard =  board;
-            // TOIMLEMNET
-            Console.WriteLine("");
+            SimulatedAnnealingParameters parameters = new SimulatedAnnealingParameters();
 
-            return chessboard;
+            do
+            {
+                int heuristicPrev = board.Heuristic();
+
+                board.MoveRandomlyOneQueen();
+
+                int heuristicAfter = board.Heuristic();
+                if (heuristicAfter == 0)
+                    return board;
+
+                if (heuristicAfter >= heuristicPrev)
+                {
+                    // TO DO
+                }
+            } while (true);
+
+
+
+
+
+
+            return board;
         }
 
-        
+
     }
 }
