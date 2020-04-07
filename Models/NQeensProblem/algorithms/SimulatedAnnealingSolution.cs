@@ -11,9 +11,10 @@ namespace ArtificialIntelligence.Models
     {
         public Chessboard solve(Chessboard board, IParams iparams)
         {
-            SimulatedAnnealingParameters parameters = new SimulatedAnnealingParameters();
+            SimulatedAnnealingParameters parameters = (SimulatedAnnealingParameters)iparams;
 
             int[] inputArray = new int[board.size];
+            int heuristicAfter;
             do
             {                                
                 board.board.CopyTo(inputArray, 0);
@@ -22,24 +23,39 @@ namespace ArtificialIntelligence.Models
 
                 board.MoveRandomlyOneQueen();
 
-                int heuristicAfter = board.Heuristic();
-                if (heuristicAfter == 0)
-                    return board;
+                heuristicAfter = board.Heuristic();
+                
 
                 if (heuristicAfter >= heuristicPrev)
                 {
-                    inputArray.CopyTo(board.board, 0);
+                    int h = heuristicAfter - heuristicPrev;
+                    double T = parameters.startingTemperature;
+                    double probabiltyOfacceptance = Math.Exp(h / T);
+
+                    double random = GenerateRandomVaule();
+
+                    // if bigger come back to previosu state
+                    if(random > probabiltyOfacceptance)
+                    {
+                        inputArray.CopyTo(board.board, 0);
+                    }
+                    parameters.startingTemperature -= parameters.coolingFactor;
                 }
-            } while (true);
 
-
-
-
+                  
+            } while (heuristicAfter != 0 && parameters.startingTemperature > 0);
 
 
             return board;
-        }
 
+
+        }
+        public double GenerateRandomVaule()
+        {
+            Random rnd = new Random();
+            int random = rnd.Next(0, 100);
+            return (double)random / 100.0;
+        }
 
     }
 }

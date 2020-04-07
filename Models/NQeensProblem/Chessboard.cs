@@ -81,7 +81,6 @@ namespace ArtificialIntelligence.Models
 
         public int GetRandomCordinateOnBoard()
         {
-
             Random rnd = new Random();
             return rnd.Next(0, size);
         }
@@ -89,8 +88,9 @@ namespace ArtificialIntelligence.Models
         {
             int queen = GetRandomQeenOnBoard();
 
+            int newPlace = GetRandomCordinateOnBoard();
 
-            board[queen] = GetRandomCordinateOnBoard();
+            board[queen] = newPlace;
         }
 
     }
