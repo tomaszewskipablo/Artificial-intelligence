@@ -45,7 +45,12 @@ namespace ArtificialIntelligence.Models
                 }
 
                 // elitizim
-                for (int i = 0; i < parameters.percentOfElitism; i++)
+                int range = parameters.percentOfElitism;
+                if (parameters.percentOfElitism > parameters.sizeOfASingleGeneration)
+                {
+                    range = parameters.sizeOfASingleGeneration;
+                }
+                for (int i = 0; i < range; i++)
                 {
                     NewGeneration.Add(Generation[i]);
                 }
@@ -79,10 +84,10 @@ namespace ArtificialIntelligence.Models
         private void Mutate(Chessboard child)
         {
             Random rnd = new Random();
-            if(rnd.Next(0, 100) < parameters.mutationProbability)
+            if (rnd.Next(0, 100) < parameters.mutationProbability)
             {
                 child.MoveRandomlyOneQueen();
-            }            
+            }
         }
         private void NewGenerationBecomesParentsGeneration(List<Chessboard> Generation, List<Chessboard> NewGeneration)
         {
