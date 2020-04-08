@@ -47,10 +47,10 @@ namespace ArtificialIntelligence.Models
                 
                 //selection
                 Chessboard parentA = SelectParent(Generation);
-                Chessboard paerntB = SelectParent(Generation);
+                Chessboard parentB = SelectParent(Generation);
 
                 //crossover
-
+                child = Crossover(parentA, parentB);
 
                 // mutate
 
@@ -73,18 +73,34 @@ namespace ArtificialIntelligence.Models
             Random rnd = new Random();
             int random = rnd.Next(0, (int)sum);
 
+            double temp=0;
 
             for(int i=0;i< parameters.sizeOfASingleGeneration; i++)
             {
-                if(random > heuristicSum)
+                temp += heuristicSum/Generation[i].finalHeuristic;
+                if (random < temp)
                 {
                     return Generation[i];
                 }
-                heuristicSum += Generation[i].finalHeuristic/ heuristicSum;
+                
             }
             return Generation[0];      
         }
+        private Chessboard Crossover(Chessboard parentA, Chessboard parentB)
+        {
+            Chessboard child = new Chessboard(parentA.size);
 
+            int split = parentA.size / 2;
+            for (int i = 0; i < split; i++)
+            {
+                child.board[i] = parentA.board[i];
+             }
+            for (int i = split /2; i < parentA.size; i++)
+            {
+                child.board[i] = parentB.board[i];
+            }
+            return child;
+        }
         private void Sort(List<Chessboard> Generation)
         {
             // BUBLE SORT
