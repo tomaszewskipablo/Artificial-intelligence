@@ -97,11 +97,51 @@ namespace ArtificialIntelligence.Controllers
             else  // geneticAlgorithms
             {
                 GeneticAlgorithmParameters parameters = new GeneticAlgorithmParameters();
-                parameters.sizeOfASingleGeneration = int.Parse(formCollection["sizeOfASingleGeneration"]);
-                parameters.percentOfElitism = int.Parse(formCollection["percentOfElitism"]);
-                parameters.crossoverProbability = int.Parse(formCollection["crossoverProbability"]);
-                parameters.mutationProbability = int.Parse(formCollection["mutationProbability"]);
-                parameters.numberOfGenerations = int.Parse(formCollection["numberOfGenerations"]);
+                try
+                {
+                    parameters.sizeOfASingleGeneration = int.Parse(formCollection["sizeOfASingleGeneration"]);
+                }
+                catch
+                {
+                    parameters.sizeOfASingleGeneration = 100;
+                }
+                try
+                {
+                    parameters.percentOfElitism = int.Parse(formCollection["percentOfElitism"]);
+                }
+                catch
+                {
+                    parameters.percentOfElitism = 20;
+                }
+                try
+                {
+                    parameters.crossoverProbability = int.Parse(formCollection["crossoverProbability"]);
+                }
+                catch
+                {
+                    parameters.crossoverProbability = 35;
+                }
+                try
+                {
+                    parameters.mutationProbability = int.Parse(formCollection["mutationProbability"]);
+                }
+                catch
+                {
+                    parameters.mutationProbability = 5;
+                }
+                try
+                {
+                    parameters.numberOfGenerations = int.Parse(formCollection["numberOfGenerations"]);
+                }
+                catch
+                {
+                    parameters.numberOfGenerations = 1000;
+                }
+
+
+
+
+               
 
                 algorithm.SetParameters(parameters);
 
