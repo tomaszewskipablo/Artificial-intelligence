@@ -14,19 +14,23 @@ namespace ArtificialIntelligence.Models
             GeneticAlgorithmParameters parameters = (GeneticAlgorithmParameters)iparams;
             board.steps = 0;
             
-            //Generate X random states and save them into states list.
+          
             List<Chessboard> Generation = new List<Chessboard>();
 
             generateGenereation(Generation, parameters.numberOfGenerations, board.size);
 
             Sort(Generation);
 
-            Chessboard f = new Chessboard(4);
+            
 
+            if (Generation[0].finalHeuristic == 0)
+            {
+                board.board = Generation[0].board;
+                board.isSolved = true;
+                board.finalHeuristic = board.Heuristic();               
+            }
 
-
-
-            return f;
+            return Generation[0];
         }
         private void generateGenereation(List<Chessboard> Generation, int sizeOfGeneration, int sizeOfBoard)
         {
