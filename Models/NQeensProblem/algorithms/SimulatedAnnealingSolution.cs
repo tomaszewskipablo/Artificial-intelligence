@@ -12,11 +12,12 @@ namespace ArtificialIntelligence.Models
         public Chessboard solve(Chessboard board, IParams iparams)
         {
             SimulatedAnnealingParameters parameters = (SimulatedAnnealingParameters)iparams;
-
+            board.steps = 0;
             int[] inputArray = new int[board.size];
             int heuristicAfter;
             do
-            {                                
+            {
+                board.steps++;
                 board.board.CopyTo(inputArray, 0);
 
                 int heuristicPrev = board.Heuristic();

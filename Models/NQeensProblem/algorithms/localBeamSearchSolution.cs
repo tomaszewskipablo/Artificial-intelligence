@@ -12,7 +12,7 @@ namespace ArtificialIntelligence.Models
         public Chessboard solve(Chessboard board, IParams iparams)
         {
             localBeamSearchParameters parameters = (localBeamSearchParameters)iparams;
-
+            board.steps = 0;
             List<Chessboard> States = new List<Chessboard>();
 
             for (int i = 0; i < parameters.numberOfStates; i++)
@@ -22,6 +22,7 @@ namespace ArtificialIntelligence.Models
 
             do
             {
+                board.steps++;
                 int indexOfBest = 0;
                 int heuristicOfBest = States[0].Heuristic();
                 for (int i = 1; i < parameters.numberOfStates; i++)

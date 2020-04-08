@@ -140,7 +140,8 @@
                         Random hetmans
                     </button>
                 }
-                <div id="results">Problem: @isSolvedStr</div>
+                <div id="results">Problem solved: @isSolvedStr</div>
+                <div id="results">In steps: @Model.chessboard.steps</div>
             </div>
 
 
@@ -172,14 +173,14 @@
                         <div id="hillClimbingVar" style="display: none">
                             <div class="form-group">
                                 <input name="maxNumberOfSteps" PreviewTextInput="NumberValidationTextBox" class="form-control" id="firVar" aria-describedby="emailHelp">
-                                <small id="emailHelp" class="form-text text-muted">Cooling Factor</small>
+                                <small id="emailHelp" class="form-text text-muted">Max number of steps</small>
                             </div>
                         </div>
 
                         <div id="simulatedAnnealingVar" style="display: none">
                             <div class="form-group">
                                 <input name="coolingFactor" class="form-control" id="firVar" aria-describedby="emailHelp">
-                                <small id="emailHelp" class="form-text text-muted">Max number of steps</small>
+                                <small id="emailHelp" class="form-text text-muted">Cooling Factor</small>
                             </div>
                             <div class="form-group">
                                 <input name="startingTemperature" class="form-control" id="secVar" aria-describedby="emailHelp">

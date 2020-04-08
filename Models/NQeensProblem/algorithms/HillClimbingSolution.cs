@@ -12,16 +12,16 @@ namespace ArtificialIntelligence.Models
         public Chessboard solve(Chessboard board, IParams iparams)
         {
             HillClimbingParameters parameters = (HillClimbingParameters)iparams;
-
+            board.steps=0;
 
             int[] inputArray = new int[board.size];
 
             int[] heuristic = new int[board.size];
-            int step = 0;
+            
 
             do
             {
-                step++;
+                board.steps++;
                 board.board.CopyTo(inputArray, 0);
                 for (int i = 0; i < board.size; i++)
                 {
@@ -35,10 +35,12 @@ namespace ArtificialIntelligence.Models
                     SetPiceToMinHeuristic(heuristic, board.board, i);
                 }
 
-                if (board.Heuristic() == 0 || parameters.maxNumberOfSteps <= step)
+                if (board.Heuristic() == 0 || parameters.maxNumberOfSteps <= board.steps)
                 {
-                    board.isSolved = true;
-
+                    if(board.Heuristic() == 0)
+                    {
+                        board.isSolved = true;
+                    }
                     return board;
                 }
                 if (AreArraysEqual(inputArray, board.board))
