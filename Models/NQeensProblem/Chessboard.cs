@@ -13,6 +13,7 @@ namespace ArtificialIntelligence.Models
         public int size = 4;
         public bool isSolved;
         public int steps = 0;
+        public int finalHeuristic;
 
         public Chessboard(int size)
         {
@@ -34,6 +35,7 @@ namespace ArtificialIntelligence.Models
                 board[i] = random;
             }
             QueensOnBoard = 1;
+            finalHeuristic = Heuristic();
         }
 
         public bool IsQueenOnBox(int i, int j)

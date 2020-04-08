@@ -54,6 +54,7 @@ namespace ArtificialIntelligence.Models
             {
                 board.isSolved = false;
             }
+            board.finalHeuristic = board.Heuristic();
             return board;
         }
         public double GenerateRandomVaule()

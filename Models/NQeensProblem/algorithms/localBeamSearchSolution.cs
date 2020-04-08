@@ -34,11 +34,16 @@ namespace ArtificialIntelligence.Models
                         heuristicOfBest = iHeuristic;
                     }
                 }
-                if (heuristicOfBest == 0)
+                if (heuristicOfBest == 0 || parameters.maxNumberOfSteps <= board.steps)
                 {
                     board.board = States[indexOfBest].board;
-
-                    board.isSolved = true;
+                    
+                    if (heuristicOfBest == 0)
+                    {                       
+                        board.isSolved = true;
+                        board.finalHeuristic = board.Heuristic();
+                    }
+                    
                     return board;
                 }
 

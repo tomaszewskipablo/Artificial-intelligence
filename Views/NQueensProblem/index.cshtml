@@ -142,6 +142,7 @@
                 }
                 <div id="results">Problem solved: @isSolvedStr</div>
                 <div id="results">In steps: @Model.chessboard.steps</div>
+                <div id="results">Heuristic: @Model.chessboard.finalHeuristic</div>
             </div>
 
 
@@ -217,7 +218,7 @@
                                 <small id="emailHelp" class="form-text text-muted">Mutation probability</small>
                             </div>
                             <div class="form-group">
-                                <input name="numberOfGenerations" class="form-control" id="secVar" aria-describedby="emailHelp" placeholder="duapka">
+                                <input name="numberOfGenerations" class="form-control" id="secVar" aria-describedby="emailHelp">
                                 <small id="emailHelp" class="form-text text-muted">Number of generations</small>
                             </div>
                         </div>
@@ -226,6 +227,7 @@
                         <button type="submit" class="btn btn-outline-secondary" style="margin-top: 15px; margin-bottom: 15px">
                             Solve problem
                         </button>
+
 
                     </center>
                 }

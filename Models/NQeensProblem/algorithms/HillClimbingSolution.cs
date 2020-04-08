@@ -41,6 +41,7 @@ namespace ArtificialIntelligence.Models
                     {
                         board.isSolved = true;
                     }
+                    board.finalHeuristic = board.Heuristic();
                     return board;
                 }
                 if (AreArraysEqual(inputArray, board.board))
