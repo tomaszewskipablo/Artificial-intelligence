@@ -10,9 +10,11 @@ namespace ArtificialIntelligence.Models
     public class HillClimbingSolution : ISolution
     {
 
-      //  1. Move queen vertically in every column queen stays on place where heuristic result is the lowest.
-      //  2. If board is blocked  -> generate new board
-      //  3. Repeat steps 1, 2 until reach maximum number of steps or heuristic = 0 
+      //  1. Move queen vertically in every column and count heuristic
+      //  2. Save queen on place where heuristic is the best.
+      //  3. Move to next column and repeat 1, 2 steps untill all columns visited
+      //  3. If board is blocked  -> generate new board
+      //  4. Repeat steps 1, 2 and 3 until (steps = maximum number of steps) or (heuristic = 0) 
 
         public Chessboard solve(Chessboard board, IParams iparams)
         {
@@ -55,7 +57,7 @@ namespace ArtificialIntelligence.Models
                     board.finalHeuristic = board.Heuristic();
                     return board;
                 }
-                // if array is equal to input array -> suck, randomize new array
+                // if array is equal to input array -> stuck, randomize new array
                 if (AreArraysEqual(inputArray, board.board))
                 {
                     board.RandomizeChessboard();

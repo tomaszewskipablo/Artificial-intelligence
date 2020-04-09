@@ -18,10 +18,9 @@ namespace ArtificialIntelligence.Models
         //          b) Generate random value from 0 to 1.
         //          c) If value > probabiltyOfacceptance  come back to input state
         //   4. Reduce Temperature by Cooling Factor
-        //   
-        Reduce Temperature by CoolingFactor.
-    If board after move is solved (heuristic result == 0) return solved board.
-    Repeat steps 1-6 until Temperature is bigger than 0.
+        //   5. If (heuristic == 0) or (Temperature < 0) finish and return solved board
+        //   6. Repeat 1-6  
+ 
 
 
         public Chessboard solve(Chessboard board, IParams iparams)
@@ -31,6 +30,7 @@ namespace ArtificialIntelligence.Models
 
             // needed when random move won't be save
             int[] inputArray = new int[board.size];
+            // needed for checking if new heuristic is better then one before move
             int heuristicAfter;
             do
             {
@@ -48,19 +48,21 @@ namespace ArtificialIntelligence.Models
                 {
                     int h = heuristicAfter - heuristicPrev;
                     double T = parameters.startingTemperature;
+
+                    // Calculate probability of acceptance:  e^(h/T)
                     double probabiltyOfacceptance = Math.Exp(h / T);
 
-                    double random = GenerateRandomVaule();
 
+                    double random = GenerateRandomVaule();
                     // if bigger come back to previosu state
                     if(random > probabiltyOfacceptance)
                     {
                         inputArray.CopyTo(board.board, 0);
-                    }
-                    parameters.startingTemperature -= parameters.coolingFactor;
+                    }                
                 }
-
-                  
+                // Reduce Temperature by Cooling Factor
+                parameters.startingTemperature -= parameters.coolingFactor;
+                // If(heuristic == 0) or(Temperature < 0) finish and return solved board
             } while (heuristicAfter != 0 && parameters.startingTemperature > 0);
 
             if(heuristicAfter==0)
