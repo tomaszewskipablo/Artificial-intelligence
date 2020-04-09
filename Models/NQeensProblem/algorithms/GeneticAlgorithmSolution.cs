@@ -17,7 +17,7 @@ namespace ArtificialIntelligence.Models
         public Chessboard solve(Chessboard board, IParams iparams)
         {
             parameters = (GeneticAlgorithmParameters)iparams;
-            GenerationNumber = 0;
+            GenerationNumber = 1;
 
 
             List<Chessboard> Generation = new List<Chessboard>();
@@ -27,12 +27,8 @@ namespace ArtificialIntelligence.Models
 
             while (GenerationNumber < parameters.numberOfGenerations)
             {
-                for (int i = 0; i < parameters.sizeOfASingleGeneration; i++)
-                {
-                    Generation[i].finalHeuristic = Generation[i].Heuristic();
-                }
+                CountHeuristicOfWholePopulation(Generation);
                 Sort(Generation);
-
 
                 //check if solved
                 if (Generation[0].finalHeuristic == 0)
@@ -44,35 +40,23 @@ namespace ArtificialIntelligence.Models
                     return board;
                 }
 
-                // elitizim
-                int range = parameters.percentOfElitism;
-                if (parameters.percentOfElitism > parameters.sizeOfASingleGeneration)
-                {
-                    range = parameters.sizeOfASingleGeneration;
-                }
-                for (int i = 0; i < range; i++)
-                {
-                    NewGeneration.Add(Generation[i]);
-                }
 
-
-                CountHeuristicOfWholePopulation(Generation);
+                Elitism(Generation, NewGeneration);
 
                 while (NewGeneration.Count != Generation.Count)
                 {
-                    Chessboard child = new Chessboard(board.size);
-
-                    //selection
+                    
+                    // --------------- Selection ------------------
                     Chessboard parentA = SelectParent(Generation);
+
                     Chessboard parentB = SelectParent(Generation);
 
-                    //crossover
-                    child = Crossover(parentA, parentB);
+                    // --------------- Crossover -------------
+                    Crossover(parentA, parentB, NewGeneration);
 
-                    // mutate
-                    Mutate(child);
+                    // --------------- Mutate ----------------
+                    Mutate(NewGeneration);
 
-                    NewGeneration.Add(child);
                 }
 
                 GenerationNumber++;
@@ -81,12 +65,19 @@ namespace ArtificialIntelligence.Models
             board.steps = parameters.numberOfGenerations;
             return Generation[0];
         }
-        private void Mutate(Chessboard child)
+        private void Mutate(List<Chessboard> NewGeneration)
         {
             Random rnd = new Random();
+            // if probability ok -> mutate
             if (rnd.Next(0, 100) < parameters.mutationProbability)
             {
-                child.MoveRandomlyOneQueen();
+                // take last element in NewGeneration (newly added child) and mutate
+                NewGeneration[NewGeneration.Count-1].MoveRandomlyOneQueen();
+            }
+            if (rnd.Next(0, 100) < parameters.mutationProbability)
+            {
+                // take one before last element in NewGeneration (second newly added child) and mutate
+                NewGeneration[NewGeneration.Count - 2].MoveRandomlyOneQueen();
             }
         }
         private void NewGenerationBecomesParentsGeneration(List<Chessboard> Generation, List<Chessboard> NewGeneration)
@@ -105,6 +96,19 @@ namespace ArtificialIntelligence.Models
                 Generation.Add(new Chessboard(sizeOfBoard));
             }
         }
+        private void Elitism(List<Chessboard> Generation, List<Chessboard> NewGeneration)
+        {
+            int range = parameters.percentOfElitism;
+            if (parameters.percentOfElitism > parameters.sizeOfASingleGeneration)
+            {
+                range = parameters.sizeOfASingleGeneration;
+            }
+            for (int i = 0; i < range; i++)
+            {
+                NewGeneration.Add(Generation[i]);
+            }
+        }
+
         private Chessboard SelectParent(List<Chessboard> Generation)
         {
             Random rnd = new Random();
@@ -123,22 +127,37 @@ namespace ArtificialIntelligence.Models
             }
             return Generation[0];
         }
-        private Chessboard Crossover(Chessboard parentA, Chessboard parentB)
+        private void Crossover(Chessboard parentA, Chessboard parentB, List<Chessboard> NewGeneration)
         {
-            Chessboard child = new Chessboard(parentA.size);
-
+            Chessboard childA = new Chessboard(parentA.size);
+            Chessboard childB = new Chessboard(parentA.size);            
+                        
             Random rnd = new Random();
-            int split = rnd.Next(0, parentA.size);
+            // if crossover probability done -> cross  
+            if (rnd.Next(0, 100) < parameters.crossoverProbability)
+            {
+                int split = rnd.Next(0, parentA.size);
 
-            for (int i = 0; i < split; i++)
-            {
-                child.board[i] = parentA.board[i];
+                for (int i = 0; i < split; i++)
+                {
+                    childA.board[i] = parentA.board[i];
+                }
+                for (int i = split; i < parentA.size; i++)
+                {
+                    childA.board[i] = parentB.board[i];
+                }
             }
-            for (int i = split; i < parentA.size; i++)
+            // if not, copy
+            else
             {
-                child.board[i] = parentB.board[i];
+                for (int i = 0; i < parentA.size; i++)
+                {
+                    childA.board[i] = parentA.board[i];
+                    childB.board[i] = parentB.board[i];
+                }
             }
-            return child;
+            NewGeneration.Add(parentA);
+            NewGeneration.Add(parentB);
         }
         private void Sort(List<Chessboard> Generation)
         {
@@ -159,6 +178,11 @@ namespace ArtificialIntelligence.Models
         }
         private void CountHeuristicOfWholePopulation(List<Chessboard> Generation)
         {
+            for (int i = 0; i < parameters.sizeOfASingleGeneration; i++)
+            {
+                Generation[i].finalHeuristic = Generation[i].Heuristic();
+            }
+
             heuristicSum = 0;
             for (int i = 0; i < parameters.sizeOfASingleGeneration; i++)
             {
