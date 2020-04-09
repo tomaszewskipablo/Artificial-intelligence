@@ -7,17 +7,35 @@ using System.Threading.Tasks;
 
 namespace ArtificialIntelligence.Models
 {
+    // 1. Generate X random states and save them in states list.
+    // 2. If one of the state in generation list is solved: return solved state.
+//    Create newGeneration list (there new chromosomes will be saved).
+//    Sort generation list(states with the lowest heuristic result at the beginning).
+//    Save X first states into elite list(list with best results).
+//    Save elite into newGeneration.
+//    While newGeneration chromosomes count is not equal SizeOfSingleGeneration repeat:
+
+//a) Selection: Randomly select 2 chromosome parents from generation list.
+
+//b) Crossover: Randomly select a point in the state and exchange all parent columns beyond that point.
+
+//c) Mutation: Move a queen from random column onto random row.
+
+//d) Add 2 chromosomes into newGeneration list.
+
+    //generation is changed into newGeneration.
+    //Repeat NumberOfGenerations times steps 2-
     public class GeneticAlgorithmSolution : ISolution
     {
         public int heuristicSum = 0;
-        public int GenerationNumber;
+        public int GenerationNumber=1;
         public double sum = 0;
         GeneticAlgorithmParameters parameters;
 
         public Chessboard solve(Chessboard board, IParams iparams)
         {
             parameters = (GeneticAlgorithmParameters)iparams;
-            GenerationNumber = 1;
+            
 
 
             List<Chessboard> Generation = new List<Chessboard>();
@@ -44,8 +62,7 @@ namespace ArtificialIntelligence.Models
                 Elitism(Generation, NewGeneration);
 
                 while (NewGeneration.Count != Generation.Count)
-                {
-                    
+                {                 
                     // --------------- Selection ------------------
                     Chessboard parentA = SelectParentTournamet(Generation);
 
@@ -56,7 +73,6 @@ namespace ArtificialIntelligence.Models
 
                     // --------------- Mutate ----------------
                     Mutate(NewGeneration);
-
                 }
 
                 GenerationNumber++;

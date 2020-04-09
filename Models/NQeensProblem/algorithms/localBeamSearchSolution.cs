@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ArtificialIntelligence.Models
 {
-    // 1. Generate X random states and save them into states list.
+    // 1. Generate X random states and save them in states list.
     // 2. Find best state in list(the lowest heuristic result).
     // 3 .If best result == 0: return best state.
     // 4. Move queen vertically in every column and count heuristic
