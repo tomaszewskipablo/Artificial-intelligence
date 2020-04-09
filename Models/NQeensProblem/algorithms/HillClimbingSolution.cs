@@ -22,19 +22,24 @@ namespace ArtificialIntelligence.Models
             do
             {
                 board.steps++;
+
                 board.board.CopyTo(inputArray, 0);
                 for (int i = 0; i < board.size; i++)
                 {
-
+                    // move pice to top spot of the column(0)
                     board.board[i] = 0;
+                    // count heuristic for every position in coumn and save it in heuristic array
                     for (int j = 0; j < board.size; j++)
                     {
                         heuristic[j] = board.Heuristic();
+                        // move to row in column
                         board.board[i] = j + 1;
                     }
+                    // move pice to place with best heuristic
                     SetPiceToMinHeuristic(heuristic, board.board, i);
                 }
-
+                
+                // Check if solved
                 if (board.Heuristic() == 0 || parameters.maxNumberOfSteps <= board.steps)
                 {
                     if(board.Heuristic() == 0)
@@ -44,6 +49,7 @@ namespace ArtificialIntelligence.Models
                     board.finalHeuristic = board.Heuristic();
                     return board;
                 }
+                // if array is equal to input array -> suck, randomize new array
                 if (AreArraysEqual(inputArray, board.board))
                 {
                     board.RandomizeChessboard();
@@ -63,6 +69,7 @@ namespace ArtificialIntelligence.Models
         }
         private bool AreArraysEqual(int[] a, int[] b)
         {
+            // compare every element in arrays
             for (int i = 0; i < a.Length; i++)
             {
                 if (a[i] != b[i])

@@ -47,9 +47,9 @@ namespace ArtificialIntelligence.Models
                 {
                     
                     // --------------- Selection ------------------
-                    Chessboard parentA = SelectParent(Generation);
+                    Chessboard parentA = SelectParentTournamet(Generation);
 
-                    Chessboard parentB = SelectParent(Generation);
+                    Chessboard parentB = SelectParentTournamet(Generation);
 
                     // --------------- Crossover -------------
                     Crossover(parentA, parentB, NewGeneration);
@@ -80,6 +80,8 @@ namespace ArtificialIntelligence.Models
                 NewGeneration[NewGeneration.Count - 2].MoveRandomlyOneQueen();
             }
         }
+        
+        // copy NewGeneration elements to Genration List
         private void NewGenerationBecomesParentsGeneration(List<Chessboard> Generation, List<Chessboard> NewGeneration)
         {
             Generation.Clear();
@@ -96,6 +98,7 @@ namespace ArtificialIntelligence.Models
                 Generation.Add(new Chessboard(sizeOfBoard));
             }
         }
+        // copy eliete elements (percentOfElitism) from Generation to NewGenration List
         private void Elitism(List<Chessboard> Generation, List<Chessboard> NewGeneration)
         {
             int range = parameters.percentOfElitism;
@@ -108,6 +111,7 @@ namespace ArtificialIntelligence.Models
                 NewGeneration.Add(Generation[i]);
             }
         }
+
 
         private Chessboard SelectParent(List<Chessboard> Generation)
         {
@@ -127,6 +131,24 @@ namespace ArtificialIntelligence.Models
             }
             return Generation[0];
         }
+        private Chessboard SelectParentTournamet(List<Chessboard> Generation)
+        {            
+            List<Chessboard> Tournament = new List<Chessboard>();
+            Random rnd = new Random();
+            // randomly choose 10% of sizeOfASingleGeneration 
+            for (int i = 0; i < 10; i++)
+            {
+                int random = rnd.Next(0, parameters.sizeOfASingleGeneration/10);
+                Tournament.Add(Generation[random]);
+            }
+            Sort(Tournament);
+            
+            // take the best one
+            return Tournament[0];
+        }
+
+
+        //single-point crossover: randomly select a point in chromosome code and exchange all parent genes beyond that point
         private void Crossover(Chessboard parentA, Chessboard parentB, List<Chessboard> NewGeneration)
         {
             Chessboard childA = new Chessboard(parentA.size);
@@ -159,9 +181,9 @@ namespace ArtificialIntelligence.Models
             NewGeneration.Add(parentA);
             NewGeneration.Add(parentB);
         }
+        // BUBLE SORT
         private void Sort(List<Chessboard> Generation)
-        {
-            // BUBLE SORT
+        {            
             Chessboard temp;
             for (int j = 0; j <= Generation.Count - 2; j++)
             {
@@ -183,15 +205,15 @@ namespace ArtificialIntelligence.Models
                 Generation[i].finalHeuristic = Generation[i].Heuristic();
             }
 
-            heuristicSum = 0;
-            for (int i = 0; i < parameters.sizeOfASingleGeneration; i++)
-            {
-                heuristicSum += Generation[i].finalHeuristic;
-            }
-            for (int i = 0; i < parameters.sizeOfASingleGeneration; i++)
-            {
-                sum += (double)heuristicSum / Generation[i].finalHeuristic;
-            }
+            //heuristicSum = 0;
+            //for (int i = 0; i < parameters.sizeOfASingleGeneration; i++)
+            //{
+            //    heuristicSum += Generation[i].finalHeuristic;
+            //}
+            //for (int i = 0; i < parameters.sizeOfASingleGeneration; i++)
+            //{
+            //    sum += (double)heuristicSum / Generation[i].finalHeuristic;
+            //}
         }
 
     }
