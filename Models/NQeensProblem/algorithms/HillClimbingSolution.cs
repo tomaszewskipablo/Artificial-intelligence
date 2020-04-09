@@ -9,11 +9,17 @@ namespace ArtificialIntelligence.Models
 {
     public class HillClimbingSolution : ISolution
     {
+
+      //  1. Move queen vertically in every column queen stays on place where heuristic result is the lowest.
+      //  2. If board is blocked  -> generate new board
+      //  3. Repeat steps 1, 2 until reach maximum number of steps or heuristic = 0 
+
         public Chessboard solve(Chessboard board, IParams iparams)
         {
             HillClimbingParameters parameters = (HillClimbingParameters)iparams;
             board.steps=0;
 
+            // for checking if board is blocked
             int[] inputArray = new int[board.size];
 
             int[] heuristic = new int[board.size];

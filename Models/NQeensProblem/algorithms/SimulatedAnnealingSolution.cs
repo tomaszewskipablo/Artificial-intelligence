@@ -9,10 +9,27 @@ namespace ArtificialIntelligence.Models
 {
     public class simulatedAnnealingSolution : ISolution
     {
+
+        //   1.Move 1 queen randomly
+        //   2. If heuristic result of state after move is worse or equal:
+        //         a) Calculate probability of acceptance:  e^(h/T)
+        //              T = Temperature
+        //              h = current heuristic result - new heuristic result
+        //          b) Generate random value from 0 to 1.
+        //          c) If value > probabiltyOfacceptance  come back to input state
+        //   4. Reduce Temperature by Cooling Factor
+        //   
+        Reduce Temperature by CoolingFactor.
+    If board after move is solved (heuristic result == 0) return solved board.
+    Repeat steps 1-6 until Temperature is bigger than 0.
+
+
         public Chessboard solve(Chessboard board, IParams iparams)
         {
             SimulatedAnnealingParameters parameters = (SimulatedAnnealingParameters)iparams;
             board.steps = 0;
+
+            // needed when random move won't be save
             int[] inputArray = new int[board.size];
             int heuristicAfter;
             do
