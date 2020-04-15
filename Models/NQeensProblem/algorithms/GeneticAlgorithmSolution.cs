@@ -7,40 +7,35 @@ using System.Threading.Tasks;
 
 namespace ArtificialIntelligence.Models
 {
-    // 1. Generate X random states and save them in states list.
+    // 1. Create Generation List and NewGeneration List, Generate X random states for Generation
     // 2. If one of the state in generation list is solved: return solved state.
-//    Create newGeneration list (there new chromosomes will be saved).
-//    Sort generation list(states with the lowest heuristic result at the beginning).
-//    Save X first states into elite list(list with best results).
-//    Save elite into newGeneration.
-//    While newGeneration chromosomes count is not equal SizeOfSingleGeneration repeat:
-
-//a) Selection: Randomly select 2 chromosome parents from generation list.
-
-//b) Crossover: Randomly select a point in the state and exchange all parent columns beyond that point.
-
-//c) Mutation: Move a queen from random column onto random row.
-
-//d) Add 2 chromosomes into newGeneration list.
-
-    //generation is changed into newGeneration.
-    //Repeat NumberOfGenerations times steps 2-
+    // 3. Count heuristic for every state in Generation
+    // 3. Sort Generation list
+    // 4. (elitism) Save X first states into newGeneration.
+    // 5. While newGeneration chromosomes count is smaller than SizeOfSingleGeneration repeat:
+    // a) (Selection Tournament) Randomly select 10 states from Generation list and return best one 
+    // b) (Crossover) Randomly select a index from which place cut satets array: 
+    // childA = left side of ParentA array + right side of ParentB
+    // childB = left side of ParentB array + right side of ParentA
+    // add children to NewGeneration List
+    // c) (Mutation) Take 2 last elemnts of NewGeneration List and  mutete them -> Move random queen to random place on board.
+    // 6. NewGeneration becomes Generation
+    // 7. Repeat untill NumberOfGenerations is smaller then max numberOfGenerations
     public class GeneticAlgorithmSolution : ISolution
     {
         public int heuristicSum = 0;
-        public int GenerationNumber=1;
+        public int GenerationNumber = 1;
         public double sum = 0;
         GeneticAlgorithmParameters parameters;
 
         public Chessboard solve(Chessboard board, IParams iparams)
         {
             parameters = (GeneticAlgorithmParameters)iparams;
-            
-
 
             List<Chessboard> Generation = new List<Chessboard>();
             List<Chessboard> NewGeneration = new List<Chessboard>();
 
+            // Generate X random states for Generation
             GenerateGenereation(Generation, parameters.sizeOfASingleGeneration, board.size);
 
             while (GenerationNumber < parameters.numberOfGenerations)
@@ -62,7 +57,7 @@ namespace ArtificialIntelligence.Models
                 Elitism(Generation, NewGeneration);
 
                 while (NewGeneration.Count != Generation.Count)
-                {                 
+                {
                     // --------------- Selection ------------------
                     Chessboard parentA = SelectParentTournamet(Generation);
 
@@ -88,7 +83,7 @@ namespace ArtificialIntelligence.Models
             if (rnd.Next(0, 100) < parameters.mutationProbability)
             {
                 // take last element in NewGeneration (newly added child) and mutate
-                NewGeneration[NewGeneration.Count-1].MoveRandomlyOneQueen();
+                NewGeneration[NewGeneration.Count - 1].MoveRandomlyOneQueen();
             }
             if (rnd.Next(0, 100) < parameters.mutationProbability)
             {
@@ -96,7 +91,7 @@ namespace ArtificialIntelligence.Models
                 NewGeneration[NewGeneration.Count - 2].MoveRandomlyOneQueen();
             }
         }
-        
+
         // copy NewGeneration elements to Genration List
         private void NewGenerationBecomesParentsGeneration(List<Chessboard> Generation, List<Chessboard> NewGeneration)
         {
@@ -148,17 +143,17 @@ namespace ArtificialIntelligence.Models
             return Generation[0];
         }
         private Chessboard SelectParentTournamet(List<Chessboard> Generation)
-        {            
+        {
             List<Chessboard> Tournament = new List<Chessboard>();
             Random rnd = new Random();
             // randomly choose 10% of sizeOfASingleGeneration 
             for (int i = 0; i < 10; i++)
             {
-                int random = rnd.Next(0, parameters.sizeOfASingleGeneration/10);
+                int random = rnd.Next(0, parameters.sizeOfASingleGeneration / 10);
                 Tournament.Add(Generation[random]);
             }
             Sort(Tournament);
-            
+
             // take the best one
             return Tournament[0];
         }
@@ -168,10 +163,11 @@ namespace ArtificialIntelligence.Models
         private void Crossover(Chessboard parentA, Chessboard parentB, List<Chessboard> NewGeneration)
         {
             Chessboard childA = new Chessboard(parentA.size);
-            Chessboard childB = new Chessboard(parentA.size);            
-                        
+            Chessboard childB = new Chessboard(parentA.size);
+
             Random rnd = new Random();
-            // if crossover probability done -> cross  
+            // ------------- single-point crossover ---------------
+            //if crossover probability done -> cross
             if (rnd.Next(0, 100) < parameters.crossoverProbability)
             {
                 int split = rnd.Next(0, parentA.size);
@@ -185,7 +181,6 @@ namespace ArtificialIntelligence.Models
                     childA.board[i] = parentB.board[i];
                 }
             }
-            // if not, copy
             else
             {
                 for (int i = 0; i < parentA.size; i++)
@@ -194,12 +189,32 @@ namespace ArtificialIntelligence.Models
                     childB.board[i] = parentB.board[i];
                 }
             }
-            NewGeneration.Add(parentA);
-            NewGeneration.Add(parentB);
+            // ------------- single-point crossover ---------------
+
+            ////-------------uniform crossover-------------- -
+            //for (int i = 0; i < parentA.size; i++)
+            //{
+            //    childA.board[i] = parentA.board[i];
+            //    childB.board[i] = parentB.board[i];
+            //}
+
+            //for (int i = 0; i < parentA.size; i++)
+            //{
+            //    if (rnd.Next(0, 100) < parameters.crossoverProbability)
+            //    {
+            //        int temp = childA.board[i];
+            //        childA.board[i] = parentB.board[i];
+            //        childB.board[i] = temp;
+            //    }
+            //}
+            ////-------------uniform crossover-------------- -
+
+            NewGeneration.Add(childA);
+            NewGeneration.Add(childB);
         }
         // BUBLE SORT
         private void Sort(List<Chessboard> Generation)
-        {            
+        {
             Chessboard temp;
             for (int j = 0; j <= Generation.Count - 2; j++)
             {

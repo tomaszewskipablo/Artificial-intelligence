@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewData["Title"] = "MinMax";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+
+
+    void DrawTicTac()
+    {
+
+        for (int i = 0; i < 3; i++)
+        {
+
+            for (int j = 0; j < 3; j++)
+            {
+                if ((j + i) % 2 == 0)
+                {
+
+    <div class="square-1">
+        
+        <img class="cross"src="https://raw.githubusercontent.com/tomaszewskipablo/N-Queen-problem-in-asp.net/master/images/cross.png" alt="crown-1" border="0">
+
+    </div>
+
+                }
+                else
+                {
+
+<div class="square-0">
+
+    <img src="https://raw.githubusercontent.com/tomaszewskipablo/N-Queen-problem-in-asp.net/master/images/circle.png" alt="crown-1" border="0">
+</div>
+                }
+            }
+            <br />
+        }
+        <br />
+    }
+}
+
+
+<h1>MinMax</h1>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section>
+        <h1 class="game--title">Tic Tac Toe</h1>
+        <div class="chessboard">
+            @{
+                DrawTicTac();
+            }
+        </div>
+        <h2 class="game--status"></h2>
+        <button class="game--restart">Restart Game</button>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>
+
+<style>
+
+
+
+    .chessboard div {
+        display: inline-block;
+        width: 140px;
+        height: 140px;
+        border-radius: 30px;
+        vertical-align: text-top;
+        text-align: center;
+    }
+
+    .square-0 {
+        background-color: gray;
+        border: 2px solid #000000;
+        text-align: right;
+    }
+
+    .square-1 {
+        background-color: #282828;
+        border: 2px solid #000000;
+    }
+    .cross {
+        width: 110px;
+        height: 110px;
+        margin: 15px;
+    }
+
+    .number {
+        text-align: center;
+        margin: auto;
+    }
+
+    img {
+        width: 124px;
+        height: 124px;
+        margin: 7px;
+    }
+</style>
