@@ -20,7 +20,7 @@ namespace ArtificialIntelligence.Controllers
         public IActionResult Game(IFormCollection formCollection)
         {
             GameState gameState = GameState.Instance;
-            //var x = formCollection["x"];
+            var x = int.Parse(formCollection["Move"]);
             //var y = formCollection["Y"];
 
             // Model.MakeMove(x,y); check if space is free, if free save, if not dont save
