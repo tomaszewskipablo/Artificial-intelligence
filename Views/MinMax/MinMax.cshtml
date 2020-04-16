@@ -1,8 +1,9 @@
 ﻿
+@model GameState
+
 @{
     ViewData["Title"] = "MinMax";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
 
 
 
@@ -14,21 +15,49 @@
 
             for (int j = 0; j < 3; j++)
             {
-                int id = (j + i*3);
-                if ((i+j) % 2 == 0)
+                int id = (j + i * 3);
+                Field field = new Field(i, j);
+                if ((i + j) % 2 == 0)
                 {
-
+                    if (Model.isCross(field))
+                    {
+                        <div class="square-1">
+                            <button Name="Move" value="@id" type="submit"><img class="cross" src="https://raw.githubusercontent.com/tomaszewskipablo/N-Queen-problem-in-asp.net/master/images/cross.png" alt="crown-1" border="0"></button>
+                        </div>
+                    }
+                    else if (Model.isCircle(field))
+                    {
+                        <div class="square-1">
+                            <button Name="Move" value="@id" type="submit"><img class="circle" src="https://raw.githubusercontent.com/tomaszewskipablo/N-Queen-problem-in-asp.net/master/images/circle.png" alt="crown-1" border="0"></button>
+                        </div>
+                    }
+                    else
+                    {
                     <div class="square-1">
-                        <button Name="Move" value="@id" type="submit"><img class="cross" src="https://raw.githubusercontent.com/tomaszewskipablo/N-Queen-problem-in-asp.net/master/images/cross.png" alt="crown-1" border="0"></button>
+                        <button Name="Move" value="@id" type="submit"></button>
                     </div>
-
+                    }
                 }
                 else
                 {
-
+                    if (Model.isCross(field))
+                    {
+                        <div class="square-0">
+                            <button Name="Move" value="@id" type="submit"><img class="cross" src="https://raw.githubusercontent.com/tomaszewskipablo/N-Queen-problem-in-asp.net/master/images/cross.png" alt="crown-1" border="0"></button>
+                        </div>
+                    }
+                    else if (Model.isCircle(field))
+                    {
+                        <div class="square-0">
+                            <button Name="Move" value="@id" type="submit"><img class="circle" src="https://raw.githubusercontent.com/tomaszewskipablo/N-Queen-problem-in-asp.net/master/images/circle.png" alt="crown-1" border="0"></button>
+                        </div>
+                    }
+                    else
+                    {
                     <div class="square-0">
-                        <button Name="Move" value="@id" type="submit"> <img class="circle" src="https://raw.githubusercontent.com/tomaszewskipablo/N-Queen-problem-in-asp.net/master/images/circle.png" alt="crown-1" border="0"></button>
+                        <button Name="Move" value="@id" type="submit"></button>
                     </div>
+                    }
                 }
             }
             <br />
@@ -54,7 +83,7 @@
 <body>
     <section>
         <h1 class="game--title">Tic Tac Toe</h1>
-        <div class="chessboard">
+        <div class="board">
             @{
                 @using (Html.BeginForm("Game", "MinMax", FormMethod.Post))
                 {
@@ -65,14 +94,13 @@
 
         <button class="game--restart">Restart Game</button>
     </section>
-    <script src="script.js"></script>
 </body>
 </html>
 
 
 
 <style>
-    .chessboard div {
+    .board div {
         display: inline-block;
         width: 140px;
         height: 140px;
@@ -97,6 +125,7 @@
         height: 90%;
         display: block;
     }
+
     .circle {
         width: 114%;
         height: 100%;
@@ -113,7 +142,7 @@
     button {
         width: 124px;
         height: 124px;
-        margin:7px;
+        margin: 7px;
         background-color: Transparent;
         background-repeat: no-repeat;
         border: none;

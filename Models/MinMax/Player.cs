@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArtificialIntelligence.Models.MinMax
+namespace ArtificialIntelligence.Models
 {
     public class Player
     {
         private int wins;
-        private bool isCross;
-
-        public Player(bool isCross)
+        private Sign sign;
+        private bool isPlayerTurn;
+        public bool isAI;
+        public Player()
         {
-            this.isCross = isCross;
+        }
+
+        public Player(Sign sign)
+        {
+            this.sign = sign;
         }
         public void AddWin()
         {
@@ -22,9 +27,17 @@ namespace ArtificialIntelligence.Models.MinMax
         {
             return wins;
         }
-        public bool GetIsCross()
+        public Sign GetSign()
         {
-            return isCross;
+            return sign;
+        }
+        public void SetSign(Sign sign)
+        {
+            this.sign = sign;
+        }
+        public bool GetIsPlayerTurn()
+        {
+            return isPlayerTurn;
         }
     }
 }
