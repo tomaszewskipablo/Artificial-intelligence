@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+public enum Sign
+{
+    empty,
+    cross,
+    circle
+}
+
+
 namespace ArtificialIntelligence.Models.MinMax
 {
     public class GameState
@@ -23,6 +31,19 @@ namespace ArtificialIntelligence.Models.MinMax
         }
 
         private Player[] player;
-        // enums
+
+        private Player PlayernTurn;
+
+        private Sign[,] board = new Sign[3,3];
+
+
+        public void MakeMove(int x, int y)
+        {
+            // TODO, insted of if, disable button in index
+            if(board[x,y]==Sign.empty)
+            {
+                board[x, y] = PlayernTurn.GetSign();
+            }
+        }
     }
 }
