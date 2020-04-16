@@ -2,7 +2,8 @@
 @{
     ViewData["Title"] = "MinMax";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
+
+
 
 
     void DrawTicTac()
@@ -13,29 +14,28 @@
 
             for (int j = 0; j < 3; j++)
             {
-                if ((j + i) % 2 == 0)
+                int id = (j + i*3);
+                if ((i+j) % 2 == 0)
                 {
 
-    <div class="square-1">
-        
-        <img class="cross"src="https://raw.githubusercontent.com/tomaszewskipablo/N-Queen-problem-in-asp.net/master/images/cross.png" alt="crown-1" border="0">
-
-    </div>
+                    <div class="square-1">
+                        <button id="@id" type="submit"><img class="cross" src="https://raw.githubusercontent.com/tomaszewskipablo/N-Queen-problem-in-asp.net/master/images/cross.png" alt="crown-1" border="0"></button>
+                    </div>
 
                 }
                 else
                 {
 
-<div class="square-0">
-
-    <img src="https://raw.githubusercontent.com/tomaszewskipablo/N-Queen-problem-in-asp.net/master/images/circle.png" alt="crown-1" border="0">
-</div>
+                    <div class="square-0">
+                        <button id="@id" type="submit"> <img class="circle" src="https://raw.githubusercontent.com/tomaszewskipablo/N-Queen-problem-in-asp.net/master/images/circle.png" alt="crown-1" border="0"></button>
+                    </div>
                 }
             }
             <br />
         }
         <br />
     }
+
 }
 
 
@@ -56,20 +56,22 @@
         <h1 class="game--title">Tic Tac Toe</h1>
         <div class="chessboard">
             @{
-                DrawTicTac();
+                @using (Html.BeginForm("Game", "MinMax", FormMethod.Post))
+                {
+                    DrawTicTac();
+                }
             }
         </div>
-        <h2 class="game--status"></h2>
+
         <button class="game--restart">Restart Game</button>
     </section>
     <script src="script.js"></script>
 </body>
 </html>
 
+
+
 <style>
-
-
-
     .chessboard div {
         display: inline-block;
         width: 140px;
@@ -89,10 +91,17 @@
         background-color: #282828;
         border: 2px solid #000000;
     }
+
     .cross {
-        width: 110px;
-        height: 110px;
-        margin: 15px;
+        width: 100%;
+        height: 90%;
+        display: block;
+    }
+    .circle {
+        width: 114%;
+        height: 100%;
+        display: block;
+        margin: -8px;
     }
 
     .number {
@@ -100,9 +109,16 @@
         margin: auto;
     }
 
-    img {
+
+    button {
         width: 124px;
         height: 124px;
-        margin: 7px;
+        margin:7px;
+        background-color: Transparent;
+        background-repeat: no-repeat;
+        border: none;
+        cursor: pointer;
+        overflow: hidden;
+        outline: none;
     }
 </style>
