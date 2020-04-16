@@ -45,7 +45,13 @@ namespace ArtificialIntelligence.Controllers
                 else
                 {
                     field = gameState.AIMove();
+                    if (gameState.isCircle(field) || gameState.isCross(field))
+                    {                        
+                        i--;
+                        continue;
+                    }
                 }
+                
                 gameState.MakeMove(field);// check if space is free, if free save, if not dont save
                                           //gameState.CheckWin();
             }
