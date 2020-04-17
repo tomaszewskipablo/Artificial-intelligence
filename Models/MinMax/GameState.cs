@@ -65,11 +65,7 @@ namespace ArtificialIntelligence.Models
         }
         public Field AIMove()
         {
-            Random rnd = new Random();
-            int x = rnd.Next(0, 3);
-            int y = rnd.Next(0, 3);
-            Field field = new Field(x, y);
-            return field;
+            return new Field(1,1);
         }
 
         public void StartGame()
