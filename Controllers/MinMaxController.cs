@@ -6,7 +6,8 @@ using ArtificialIntelligence.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-public struct Field{
+public struct Field
+{
     public int x;
     public int y;
 
@@ -23,8 +24,15 @@ namespace ArtificialIntelligence.Controllers
     {
         public IActionResult Index()
         {
+
             GameState gameState = GameState.Instance;
             gameState.StartGame();
+            if (gameState.GetIsAImove())
+            {
+                Field field = gameState.AIMove();
+                gameState.MakeMove(field);
+            }
+
             return View("MinMax", gameState);
         }
 
@@ -33,24 +41,15 @@ namespace ArtificialIntelligence.Controllers
         {
             GameState gameState = GameState.Instance;
 
-            for (int i = 0; i < 2; i++)
-            {
-                Field field;
-                if (gameState.GetIsAImove() == false)
-                {
-                    int fieldUser = int.Parse(formCollection["Move"]);
+            Field field;
+            int fieldUser = int.Parse(formCollection["Move"]);
+            field = new Field(fieldUser / 3, fieldUser % 3);
+            gameState.MakeMove(field);
 
-                    field = new Field(fieldUser / 3, fieldUser % 3);
-                }
-                else
-                {
-                    field = gameState.AIMove();
-                }
-                gameState.MakeMove(field);// check if space is free, if free save, if not dont save
-                                          //gameState.CheckWin();
-            }
+            field = gameState.AIMove();
+            gameState.MakeMove(field);
+
             return View("MinMax", gameState);
-
         }
     }
 }

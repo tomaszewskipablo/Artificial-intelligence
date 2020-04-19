@@ -43,7 +43,7 @@ namespace ArtificialIntelligence.Models
 
         private Player currenPlayer;
 
-        private bool IsAImove=false;
+        private bool IsAImove=true;
 
         private Sign[,] board = new Sign[3,3];
 
@@ -65,7 +65,16 @@ namespace ArtificialIntelligence.Models
         }
         public Field AIMove()
         {
-            return new Field(1,1);
+            Random rnd = new Random();
+
+            Field field;
+            do
+            {                
+                field.x =  rnd.Next(0, 3);
+                field.y = rnd.Next(0, 3);
+            } while (isCircle(field) || isCross(field));
+
+            return field;
         }
 
         public void StartGame()
