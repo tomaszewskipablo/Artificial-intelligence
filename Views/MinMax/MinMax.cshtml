@@ -92,7 +92,11 @@
             }
         </div>
 
-        <button class="game--restart">Restart Game</button>
+        @using (Html.BeginForm("Restart", "MinMax", FormMethod.Post))
+        {
+            <button class="game--restart">Restart Game</button>
+        }
+        
     </section>
 </body>
 </html>

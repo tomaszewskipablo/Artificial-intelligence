@@ -9,7 +9,7 @@ namespace ArtificialIntelligence.Models
     {
         private int wins;
         private Sign sign;
-        private bool isPlayerTurn;
+
         public bool isAI;
         public Player()
         {
@@ -35,9 +35,6 @@ namespace ArtificialIntelligence.Models
         {
             this.sign = sign;
         }
-        public bool GetIsPlayerTurn()
-        {
-            return isPlayerTurn;
-        }
+
     }
 }

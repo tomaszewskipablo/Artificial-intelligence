@@ -80,9 +80,11 @@ namespace ArtificialIntelligence.Models
         public void StartGame()
         {
             player = new Player[2] { new Player(), new Player() };
+            player[1].isAI = true;            
             player[0].SetSign(Sign.cross);
             player[1].SetSign(Sign.circle);
-            currenPlayer = player[0];
+
+            currenPlayer = player[1];
         }
         public void MakeMove(Field field)
         {
@@ -98,8 +100,7 @@ namespace ArtificialIntelligence.Models
                 }
                 else
                     currenPlayer = player[1];
-            }
-            
+            }        
         }
         public bool isCross(Field field)
         {
@@ -167,6 +168,16 @@ namespace ArtificialIntelligence.Models
             //{
             //    //report draw
             //}
+        }
+        public void RestartGame()
+        {
+            for(int i = 0; i<3;i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    board[i,j] = Sign.empty;
+                }
+            }
         }
     }
 }
