@@ -45,6 +45,7 @@ namespace ArtificialIntelligence.Models
 
         private bool IsAImove=true;
 
+        private bool AIstarted;
         private Sign[,] board = new Sign[3,3];
 
         public GameStatus gameStatus = GameStatus.notFinished;
@@ -80,15 +81,17 @@ namespace ArtificialIntelligence.Models
         public void StartGame()
         {
             player = new Player[2] { new Player(), new Player() };
-            player[1].isAI = true;            
+            player[1].isAI = true;    
+            // player
             player[0].SetSign(Sign.cross);
+            // AI
             player[1].SetSign(Sign.circle);
 
             currenPlayer = player[1];
+            AIstarted = currenPlayer.isAI;
         }
         public void MakeMove(Field field)
         {
-            // TODO, insted of if, disable button in index
             if(board[field.x, field.y]==Sign.empty)
             {
                 board[field.x, field.y] = currenPlayer.GetSign();
@@ -117,10 +120,6 @@ namespace ArtificialIntelligence.Models
                 gameStatus = GameStatus.tie;
                 return true;
             }
-            
-
-
-            
             for (int i = 0; i < 2; i++)
             {
                 Sign sign = player[i].GetSign();
@@ -146,7 +145,7 @@ namespace ArtificialIntelligence.Models
                 }
 
 
-                ////check row
+                //check row
                 for (int x = 0; x < 3; x++)
                 {
                     for (int y = 0; y < 3; y++)
@@ -220,6 +219,16 @@ namespace ArtificialIntelligence.Models
             }
             moveCount = 0;
             gameStatus = GameStatus.notFinished;
+
+            if (AIstarted)
+            {
+                currenPlayer = player[0];
+            }
+            else
+                currenPlayer = player[1];
+
+            IsAImove = !AIstarted;
+            AIstarted = IsAImove;       
         }
     }
 }

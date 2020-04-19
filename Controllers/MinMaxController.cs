@@ -27,6 +27,7 @@ namespace ArtificialIntelligence.Controllers
 
             GameState gameState = GameState.Instance;
             gameState.StartGame();
+            gameState.RestartGame();
             if (gameState.GetIsAImove())
             {
                 Field field = gameState.AIMove();
@@ -69,7 +70,7 @@ namespace ArtificialIntelligence.Controllers
             GameState gameState = GameState.Instance;
 
             gameState.RestartGame();
-
+           
             return View("MinMax", gameState);
         }
     }
