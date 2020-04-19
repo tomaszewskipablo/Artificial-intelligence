@@ -167,7 +167,7 @@ namespace ArtificialIntelligence.Models
                     }
                 }
 
-                ////check diag
+                //check diag
                 for (int s = 0; s < 3; s++)
                 {
                     {
@@ -206,12 +206,6 @@ namespace ArtificialIntelligence.Models
                         }
                     }
                 }
-
-                ////check draw
-                //if (moveCount == (Math.pow(n, 2) - 1))
-                //{
-                //    //report draw
-                //}
             }
             return false;
         }
@@ -225,6 +219,7 @@ namespace ArtificialIntelligence.Models
                 }
             }
             moveCount = 0;
+            gameStatus = GameStatus.notFinished;
         }
     }
 }

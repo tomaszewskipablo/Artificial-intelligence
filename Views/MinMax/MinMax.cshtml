@@ -5,7 +5,7 @@
     ViewData["Title"] = "MinMax";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    string result="";
+    string result = "";
 
     if (Model.gameStatus == GameStatus.tie)
     {
@@ -13,11 +13,15 @@
     }
     else if (Model.gameStatus == GameStatus.playerWon)
     {
-        result = "Win";
+        result = "#Win";
     }
     else if (Model.gameStatus == GameStatus.bootWon)
     {
         result = "Defeat";
+    }
+    else
+    {
+        result = "";
     }
 
     void DrawTicTac()
@@ -61,6 +65,7 @@
                     }
                     else if (Model.isCircle(field))
                     {
+
                         <div class="square-0">
                             <button Name="Move" value="@id" type="submit"><img class="circle" src="https://raw.githubusercontent.com/tomaszewskipablo/N-Queen-problem-in-asp.net/master/images/circle.png" alt="crown-1" border="0"></button>
                         </div>
@@ -96,31 +101,57 @@
 <body>
     <section>
         <h1 class="game--title">Tic Tac Toe</h1>
-        <div class="board">
-            @{
-                @using (Html.BeginForm("Game", "MinMax", FormMethod.Post))
-                {
-                    DrawTicTac();
-                }
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="board">
+                    @{
+                        <label id="results">@result </label>
+                        @using (Html.BeginForm("Game", "MinMax", FormMethod.Post))
+                        {
+                            DrawTicTac();
+                        }
+                    }
+                </div>
+            </div>
+            @using (Html.BeginForm("Restart", "MinMax", FormMethod.Post))
+            {
+                <button class="btn btn-outline-secondary">Restart Game</button>
             }
+
         </div>
-
-        @using (Html.BeginForm("Restart", "MinMax", FormMethod.Post))
-        {
-            <button class="game--restart">Restart Game</button>
-        }
-
-
-        <div id="results">@result</div>
-
-
     </section>
 </body>
 </html>
 
-
+<script>
+    if (@result.Length == 4) {
+        document.getElementById("results").style.display = "grid";
+    }
+    else if (@result.Length == 3) {
+        document.getElementById("results").style.display = "grid";
+    }
+    else if (@result.Length == 6) {
+        document.getElementById("results").style.display = "grid";
+        
+    }
+    else {
+        document.getElementById("results").style.display = "none";
+    }
+</script>
 
 <style>
+    #results {
+        position: absolute;
+        font-size: 140px;
+        color: bisque;
+        width: 430px;
+        height: 405px;
+        align-content: center;
+        display: grid;
+        text-align: center;
+        display: none;
+    }
+
     .board div {
         display: inline-block;
         width: 140px;
@@ -160,7 +191,7 @@
     }
 
 
-    button {
+    .board button {
         width: 124px;
         height: 124px;
         margin: 7px;
