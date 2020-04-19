@@ -145,46 +145,67 @@ namespace ArtificialIntelligence.Models
                     }
                 }
 
-                
+
                 ////check row
-                //for (int i = 0; i < n; i++)
-                //{
-                //    if (board[i][y] != s)
-                //        break;
-                //    if (i == n - 1)
-                //    {
-                //        //report win for s
-                //    }
-                //}
+                for (int x = 0; x < 3; x++)
+                {
+                    for (int y = 0; y < 3; y++)
+                    {
+                        if (board[x, y] != sign)
+                            break;
+                        if (y == 2)
+                        {
+                            if (player[i].isAI)
+                            {
+                                gameStatus = GameStatus.bootWon;
+                            }
+                            else
+                                gameStatus = GameStatus.playerWon;
+
+                            return true;
+                        }
+                    }
+                }
 
                 ////check diag
-                //if (x == y)
-                //{
-                //    //we're on a diagonal
-                //    for (int i = 0; i < n; i++)
-                //    {
-                //        if (board[i][i] != s)
-                //            break;
-                //        if (i == n - 1)
-                //        {
-                //            //report win for s
-                //        }
-                //    }
-                //}
+                for (int s = 0; s < 3; s++)
+                {
+                    {
+                        if (board[s, s] != sign)
+                            break;
+                        if (s == 2)
+                        {
+                            if (player[i].isAI)
+                            {
+                                gameStatus = GameStatus.bootWon;
+                            }
+                            else
+                                gameStatus = GameStatus.playerWon;
 
-                ////check anti diag (thanks rampion)
-                //if (x + y == n - 1)
-                //{
-                //    for (int i = 0; i < n; i++)
-                //    {
-                //        if (board[i][(n - 1) - i] != s)
-                //            break;
-                //        if (i == n - 1)
-                //        {
-                //            //report win for s
-                //        }
-                //    }
-                //}
+                            return true;
+                        }
+                    }
+                }
+
+                //check anti-diag
+                for (int s = 0; s < 3; s++)
+                {
+                    {
+                        if (board[2 - s, s] != sign)
+                            break;
+                        if (s == 2)
+                        {
+                            if (player[i].isAI)
+                            {
+                                gameStatus = GameStatus.bootWon;
+                            }
+                            else
+                                gameStatus = GameStatus.playerWon;
+
+                            return true;
+                        }
+                    }
+                }
 
                 ////check draw
                 //if (moveCount == (Math.pow(n, 2) - 1))
