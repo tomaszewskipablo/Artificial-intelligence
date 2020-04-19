@@ -41,17 +41,25 @@ namespace ArtificialIntelligence.Controllers
         {
             GameState gameState = GameState.Instance;
 
-            // ------- USER --------
-            int fieldUser = int.Parse(formCollection["Move"]);
-            Field field = new Field(fieldUser / 3, fieldUser % 3);
-            gameState.MakeMove(field);
-            // ------- USER --------
+            Field field;
+            if (!gameState.CheckGameStatus())
+            {
+                // ------- USER --------
+                int fieldUser = int.Parse(formCollection["Move"]);
+                field = new Field(fieldUser / 3, fieldUser % 3);
+                gameState.MakeMove(field);
+                // ------- USER --------
+            }
 
-            // -------  AI  --------
-            field = gameState.AIMove();
-            gameState.MakeMove(field);
-            // -------  AI  --------
+            if (!gameState.CheckGameStatus())
+            {
+                // -------  AI  --------
+                field = gameState.AIMove();
+                gameState.MakeMove(field);
+                // -------  AI  --------
+            }
 
+            gameState.CheckGameStatus();
             return View("MinMax", gameState);
         }
 
@@ -63,6 +71,6 @@ namespace ArtificialIntelligence.Controllers
             gameState.RestartGame();
 
             return View("MinMax", gameState);
-        }      
+        }
     }
 }

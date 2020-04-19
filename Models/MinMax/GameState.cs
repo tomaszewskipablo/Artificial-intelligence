@@ -47,7 +47,7 @@ namespace ArtificialIntelligence.Models
 
         private Sign[,] board = new Sign[3,3];
 
-        private GameStatus gameStatus = GameStatus.notFinished;
+        public GameStatus gameStatus = GameStatus.notFinished;
 
         private int moveCount=0;
 
@@ -110,64 +110,89 @@ namespace ArtificialIntelligence.Models
         {
             return board[field.x, field.y] == Sign.circle;
         }
-        public void CheckWin()
+        public bool CheckGameStatus()
         {
-            ////check col
-            //for (int i = 0; i < 3; i++)
-            //{
-            //    if (board[x][y] != s)
-            //        break;
-            //    if (i == n - 1)
-            //    {
-            //        //report win for s
-            //    }
-            //}
+            if(moveCount==9)
+            {
+                gameStatus = GameStatus.tie;
+                return true;
+            }
+            
 
-            ////check row
-            //for (int i = 0; i < n; i++)
-            //{
-            //    if (board[i][y] != s)
-            //        break;
-            //    if (i == n - 1)
-            //    {
-            //        //report win for s
-            //    }
-            //}
 
-            ////check diag
-            //if (x == y)
-            //{
-            //    //we're on a diagonal
-            //    for (int i = 0; i < n; i++)
-            //    {
-            //        if (board[i][i] != s)
-            //            break;
-            //        if (i == n - 1)
-            //        {
-            //            //report win for s
-            //        }
-            //    }
-            //}
+            
+            for (int i = 0; i < 2; i++)
+            {
+                Sign sign = player[i].GetSign();
+                //check col
+                for (int y = 0; y < 3; y++)
+                {
+                    for (int x = 0; x < 3; x++)
+                    {
+                        if (board[x, y] != sign)
+                            break;
+                        if (x == 2)
+                        {
+                            if (player[i].isAI)
+                            {
+                                gameStatus = GameStatus.bootWon;
+                            }
+                            else
+                                gameStatus = GameStatus.playerWon;
 
-            ////check anti diag (thanks rampion)
-            //if (x + y == n - 1)
-            //{
-            //    for (int i = 0; i < n; i++)
-            //    {
-            //        if (board[i][(n - 1) - i] != s)
-            //            break;
-            //        if (i == n - 1)
-            //        {
-            //            //report win for s
-            //        }
-            //    }
-            //}
+                            return true;
+                        }
+                    }
+                }
 
-            ////check draw
-            //if (moveCount == (Math.pow(n, 2) - 1))
-            //{
-            //    //report draw
-            //}
+                
+                ////check row
+                //for (int i = 0; i < n; i++)
+                //{
+                //    if (board[i][y] != s)
+                //        break;
+                //    if (i == n - 1)
+                //    {
+                //        //report win for s
+                //    }
+                //}
+
+                ////check diag
+                //if (x == y)
+                //{
+                //    //we're on a diagonal
+                //    for (int i = 0; i < n; i++)
+                //    {
+                //        if (board[i][i] != s)
+                //            break;
+                //        if (i == n - 1)
+                //        {
+                //            //report win for s
+                //        }
+                //    }
+                //}
+
+                ////check anti diag (thanks rampion)
+                //if (x + y == n - 1)
+                //{
+                //    for (int i = 0; i < n; i++)
+                //    {
+                //        if (board[i][(n - 1) - i] != s)
+                //            break;
+                //        if (i == n - 1)
+                //        {
+                //            //report win for s
+                //        }
+                //    }
+                //}
+
+                ////check draw
+                //if (moveCount == (Math.pow(n, 2) - 1))
+                //{
+                //    //report draw
+                //}
+            }
+            return false;
         }
         public void RestartGame()
         {
@@ -178,6 +203,7 @@ namespace ArtificialIntelligence.Models
                     board[i,j] = Sign.empty;
                 }
             }
+            moveCount = 0;
         }
     }
 }

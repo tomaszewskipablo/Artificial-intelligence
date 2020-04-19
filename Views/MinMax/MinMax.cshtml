@@ -5,7 +5,20 @@
     ViewData["Title"] = "MinMax";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    string result="";
 
+    if (Model.gameStatus == GameStatus.tie)
+    {
+        result = "Tie";
+    }
+    else if (Model.gameStatus == GameStatus.playerWon)
+    {
+        result = "Win";
+    }
+    else if (Model.gameStatus == GameStatus.bootWon)
+    {
+        result = "Defeat";
+    }
 
     void DrawTicTac()
     {
@@ -33,9 +46,9 @@
                     }
                     else
                     {
-                    <div class="square-1">
-                        <button Name="Move" value="@id" type="submit"></button>
-                    </div>
+                        <div class="square-1">
+                            <button Name="Move" value="@id" type="submit"></button>
+                        </div>
                     }
                 }
                 else
@@ -54,9 +67,9 @@
                     }
                     else
                     {
-                    <div class="square-0">
-                        <button Name="Move" value="@id" type="submit"></button>
-                    </div>
+                        <div class="square-0">
+                            <button Name="Move" value="@id" type="submit"></button>
+                        </div>
                     }
                 }
             }
@@ -96,7 +109,11 @@
         {
             <button class="game--restart">Restart Game</button>
         }
-        
+
+
+        <div id="results">@result</div>
+
+
     </section>
 </body>
 </html>
