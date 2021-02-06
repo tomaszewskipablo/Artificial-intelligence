@@ -1,5 +1,5 @@
 # IA in ASP.NET
-Application solves N Queens Problem and Tick Tack Toe game using some AI techniques. </br>
+Web app solves N Queens Problem and Tic Tac Toe game using some AI techniques. </br>
 In the future multi-layer artificial neural network will be implemented.
 
 ## Launching 
@@ -103,6 +103,12 @@ Number Of Generations - default: 1000
      6. NewGeneration becomes Generation
      7. Repeat untill NumberOfGenerations is smaller then max numberOfGenerations
 
+
+
+
+# Tic Tac Toe
+Tic-tac-toe is a game for two players (you as X and computer as O). Every round player put his character on the 3x3 board. The player who puts first three of his marks in a horizontal, vertical, or diagonal row wins the game. In game computer works on Alpha–beta pruning algorithm. User can choose how "predictable" computer will be by choosing the level from 1 to 9. First level computer predict one move forward, ninth level is unbeatable.
+
+<p align="center">
 <img src="images/TicTacTeo.PNG" width="80%">
-
-
+ </p>
